@@ -1,0 +1,199 @@
+<%- include('./includes/main.ejs') %>
+
+
+
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Stream List</h6>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header border-0">
+                        <button class="btn btn-primary" onclick="loadStreams()">Refresh Stream</button>
+
+
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                    <div class="modal-body">
+                                        <video height="100%" width="100%" id="videoElement"></video>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" onclick="stopvplaying()" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="sort" data-sort="name">Client Id</th>
+
+                                    <th scope="col" class="sort" data-sort="route">Stream Name</th>
+                                    <th scope="col" class="sort" data-sort="route">IP</th>
+                                    <th scope="col" class="sort" data-sort="route">Started AT</th>
+                                    <th scope="col" class="sort" data-sort="route">Video Info</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="list" id="tabledata">
+
+
+
+
+
+
+                            </tbody>
+                        </table>
+                        <h1 id="demo"></h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io("http://127.0.0.1:3000");
+
+            var messages = document.getElementById('messages');
+            var form = document.getElementById('form');
+            var input = document.getElementById('input');
+
+            // form.addEventListener('submit', function (e) {
+            //     e.preventDefault();
+            //     if (input.value) {
+            //         socket.emit('chat message', input.value);
+            //         input.value = '';
+            //     }
+            // });
+
+            socket.on('chat message', function (msg) {
+                var item = document.createElement('li');
+                item.textContent = msg;
+                messages.appendChild(item);
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+
+            // loadStreams();
+
+
+            function loadStreams() {
+                console.log("called load stream");
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+
+                        var obj = JSON.parse(this.responseText);
+
+
+
+                        if (obj != null) {
+                            var liveStreams = obj.live;
+                            document.getElementById("tabledata").innerHTML = '';
+                            for (var strm in liveStreams) {
+
+                                var publisher = liveStreams[strm].publisher;
+                                var clientId = publisher.clientId;
+                                var stream = publisher.stream;
+                                var startTime = publisher.connectCreated;
+                                var ip = publisher.ip;
+                                var video = publisher.video;
+
+                                var addinTable = ' <tr><td data-toggle="modal" data-target="#exampleModal">' + clientId + '</td><td onclick=playStream("' + stream + '")><a href="#" >' + stream + '</a></td><td>' + ip + '</td><td>' + startTime + '</td><td>' + video.height + ' x ' + video.width + '</td></tr>';
+
+
+
+                                document.getElementById("tabledata").innerHTML = document.getElementById("tabledata").innerHTML + addinTable;
+                            }
+                        }
+
+
+
+
+
+
+                    }
+                };
+                xhttp.open("GET", "http://127.0.0.1:8000/api/streams", true);
+                xhttp.send();
+
+
+
+            }
+
+           // setInterval(loadStreams, 4000);
+        </script>
+
+
+        <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+
+        <script>
+            function openModald() {
+                $('#exampleModal').modal('show');
+            }
+            var flvPlayer;
+
+            function playStream(strm_id) {
+
+                openModald();
+
+                var vurl = 'http://localhost:8000/live/' + strm_id + '.flv';
+
+                if (flvjs.isSupported()) {
+                    var videoElement = document.getElementById('videoElement');
+                    flvPlayer = flvjs.createPlayer({
+                        type: 'flv',
+                        url: vurl
+                    });
+                    flvPlayer.attachMediaElement(videoElement);
+                    flvPlayer.load();
+                    flvPlayer.play();
+                }
+
+            }
+
+
+            function stopvplaying() {
+                console.log("seraj", "playing")
+                flvPlayer.pause();
+
+            }
+        </script>
+
+
+
+
+
+    </div>
+
+    <%- include('./includes/mainfooter.ejs') %>

@@ -1,0 +1,76 @@
+<%- include('./includes/main.ejs') %>
+
+    <style>
+        .gallery-item {
+
+            max-height: 280px;
+            height: auto;
+            background-color: black;
+        }
+    </style>
+    <!-- APP MAIN ==========-->
+    <main id="app-main" class="app-main">
+        <div class="wrap">
+            <section class="app-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mail-toolbar m-b-lg">
+                            <div class="btn-group" role="group">
+                                <a href="#" onclick="addvideo()" class="btn btn-default">Media Grid</a>
+                            </div>
+
+                            <div class="btn-group" role="group">
+                                <a href="#" class="btn btn-default"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></a>
+                            </div>
+                            <a href="#" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+
+                            <div class="btn-group pull-right" role="group">
+                                <a href="#" class="btn btn-default"><i class="fa fa-chevron-left"></i></a>
+                                <a href="#" class="btn btn-default"><i class="fa fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Gallery -->
+                <div class="gallery row" id="mainview">
+
+
+                </div><!-- END .gallery -->
+            </section><!-- #dash-content -->
+        </div><!-- .wrap -->
+        <!-- APP FOOTER -->
+        <!-- <div class="wrap p-t-0">
+            <footer class="app-footer">
+                <div class="clearfix">
+                    <ul class="footer-menu pull-right">
+                        <li><a href="javascript:void(0)">Careers</a></li>
+                        <li><a href="javascript:void(0)">Privacy Policy</a></li>
+                        <li><a href="javascript:void(0)">Feedback <i class="fa fa-angle-up m-l-md"></i></a></li>
+                    </ul>
+                    <div class="copyright pull-left">Copyright RaThemes 2016 &copy;</div>
+                </div>
+            </footer>
+        </div> -->
+        <!-- /#app-footer -->
+    </main>
+    <!--========== END app main -->
+
+    <script>
+        var mainview = document.getElementById('mainview');
+        function addvideo() {
+            // alert('Hello');
+            const div = document.createElement('div');
+
+            div.className = 'col-xs-6 col-sm-4 col-md-3';
+            var myvframe = '<div class="gallery-item"><div class=""><video class="img-responsive" src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"  alt="" controls muted></video></div><div class="caption">gallery-item Caption</div></div>';
+            div.innerHTML = myvframe;
+            mainview.appendChild(div);
+        }
+    </script>
+
+
+
+
+    <%- include('./includes/mainfooter.ejs') %>

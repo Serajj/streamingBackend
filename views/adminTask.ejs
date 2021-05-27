@@ -1,0 +1,60 @@
+<%- include('./includes/main.ejs') %>
+
+    <!-- APP MAIN ==========-->
+    <main id="app-main" class="app-main">
+        <div class="wrap">
+            <section class="app-content">
+                <div class="row">
+                    <!-- DOM dataTable -->
+                    <div class="col-md-12">
+                        <div class="widget">
+                            <header class="widget-header">
+                                <h4 class="widget-title">Task List</h4>
+                            </header><!-- .widget-header -->
+                            <hr class="widget-separator">
+                            <div class="widget-body">
+                                <div class="table-responsive">
+                                    <table id="default-datatable" data-plugin="DataTable" class="table table-striped"
+                                        cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Task ID</th>
+
+                                                <th>Name</th>
+                                                <th>Editor</th>
+                                                <th>Streamer</th>
+                                                <th>Time</th>
+                                                <th>Cost</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Task ID</th>
+
+                                                <th>Name</th>
+                                                <th>Editor</th>
+                                                <th>Streamer</th>
+                                                <th>Time</th>
+                                                <th>Cost</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div><!-- .widget-body -->
+                        </div><!-- .widget -->
+                    </div><!-- END column -->
+
+
+
+                </div><!-- .row -->
+            </section><!-- .app-content -->
+        </div><!-- .wrap -->
+
+    </main>
+    <!--========== END app main -->
+
+    <%- include('./includes/mainfooter.ejs') %>

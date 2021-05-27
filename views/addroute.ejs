@@ -1,0 +1,148 @@
+<%- include('./includes/header.ejs') %>
+
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Add new route</h6>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header border-0">
+                        <h3 class="mb-0">Add Route</h3>
+                    </div>
+                    <!-- Light table -->
+                    <div class="table-responsive p-5">
+
+                        <form method="POST">
+
+                            <div class="form-row">
+
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom01">Route name</label>
+                                    <input type="text" class="form-control" name="route_name"
+                                        placeholder="College to Rajajipuram" required>
+
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+                            <div class="form-row">
+
+                                <input type="text" class="form-control" id="slat" value="27.006882622809666"
+                                    placeholder="Lattitude" hidden>
+                                <input type="text" class="form-control" value="80.9205153658539" id="slong"
+                                    placeholder="Longitude" hidden>
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom01">Last Stop Lattitude</label>
+                                    <input type="text" class="form-control" name="last_lattitude" id="dlat"
+                                        placeholder="Lattitude" required>
+
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom02">Last Stop Longitude</label>
+                                    <input type="text" class="form-control" name="last_longitude" id="dlong"
+                                        placeholder="Longitude" required>
+
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustomUsername">Set</label>
+                                    <div class="input-group">
+
+                                        <button type="button" class="btn btn-primary" onclick="myMap('dlat','dlong')"
+                                            aria-describedby="inputGroupPrepend" data-toggle="modal"
+                                            data-target="#exampleModal">Set </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <button class="btn btn-primary" type="submit">Add Routes</button>
+                        </form>
+
+
+
+                    </div>
+                    <!-- Card footer -->
+                    <div class="card-footer py-4">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="googleMap" style="width:100%;height:400px;"></div>
+                </div>
+                <div class="modal-footer">
+
+
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Set Location</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX4jPMPgs6OegqifuWiKNeocIVLIM6iLs"></script>
+    <script>
+
+        function myMap(latid, longid) {
+            var latitude_id = document.getElementById(latid);
+            var longitude_id = document.getElementById(longid);
+            var mapProp = {
+                center: new google.maps.LatLng(27.0054679, 80.9230581),
+                zoom: 12,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+            google.maps.event.addListener(map, 'click', function (event) {
+
+                marker = new google.maps.Marker({ position: event.latLng, map: map });
+                // alert(event.latLng.lat() + ", " + event.latLng.lng());
+                latitude_id.value = event.latLng.lat();
+                longitude_id.value = event.latLng.lng();
+            });
+
+        }
+
+    </script>
+
+
+    <%- include('./includes/footer.ejs') %>
