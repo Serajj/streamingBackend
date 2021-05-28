@@ -1,99 +1,101 @@
-<%- include('./includes/main.ejs') %>
+<%- include('./includes/head.ejs') %>
+    <title>Streamers | Admin</title>
+    <%- include('./includes/main.ejs') %>
 
-    <!-- APP MAIN ==========-->
-    <main id="app-main" class="app-main">
-        <div class="wrap">
-            <section class="app-content">
-                <div class="row">
-                    <!-- DOM dataTable -->
-                    <div class="col-md-12">
-                        <div class="widget">
-                            <header class="widget-header">
-                                <h4 class="widget-title">Streamers List</h4>
-                            </header><!-- .widget-header -->
-                            <hr class="widget-separator">
-                            <div class="widget-body">
-                                <div class="table-responsive">
-                                    <table id="default-datatable" data-plugin="DataTable" class="table table-striped"
-                                        cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-
-                                                <th>Email</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-
-                                                <th>Email</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-
-                                            <% users.forEach(function(el, index) {%>
-
+        <!-- APP MAIN ==========-->
+        <main id="app-main" class="app-main">
+            <div class="wrap">
+                <section class="app-content">
+                    <div class="row">
+                        <!-- DOM dataTable -->
+                        <div class="col-md-12">
+                            <div class="widget">
+                                <header class="widget-header">
+                                    <h4 class="widget-title">Streamers List</h4>
+                                </header><!-- .widget-header -->
+                                <hr class="widget-separator">
+                                <div class="widget-body">
+                                    <div class="table-responsive">
+                                        <table id="default-datatable" data-plugin="DataTable"
+                                            class="table table-striped" cellspacing="0" width="100%">
+                                            <thead>
                                                 <tr>
+                                                    <th>Name</th>
 
-                                                    <td>
-                                                        <%= el.name %>
-                                                    </td>
-
-                                                    <td>
-                                                        <%= el.email %>
-                                                    </td>
-
-
-
-                                                    <td class="text-right">
-                                                        <div class="dropdown">
-                                                            <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                                role="button" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <i class="fa fa-ellipsis-v"></i>
-                                                            </a>
-                                                            <div
-                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                                <a class="dropdown-item" href="#">Edit</a>
-
-
-
-                                                                <form method="POST" action="/admin/deleteUser">
-
-                                                                    <input name="id" value="<%=el._id %>" type="text"
-                                                                        hidden>
-                                                                    <a class="dropdown-item" href="#">Delete</a>
-                                                                </form>
-
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                                    <th>Email</th>
+                                                    <th>Action</th>
                                                 </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Name</th>
+
+                                                    <th>Email</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+
+                                                <% users.forEach(function(el, index) {%>
+
+                                                    <tr>
+
+                                                        <td>
+                                                            <%= el.name %>
+                                                        </td>
+
+                                                        <td>
+                                                            <%= el.email %>
+                                                        </td>
+
+
+
+                                                        <td class="text-center">
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                                    role="button" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fa fa-ellipsis-v"></i>
+                                                                </a>
+                                                                <div
+                                                                    class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                                    <a class="dropdown-item" href="#">Edit</a>
+
+
+
+                                                                    <form method="POST" action="/admin/deleteUser">
+
+                                                                        <input name="id" value="<%=el._id %>"
+                                                                            type="text" hidden>
+                                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                                    </form>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
 
 
 
 
 
 
-                                                <%}); %>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div><!-- .widget-body -->
-                        </div><!-- .widget -->
-                    </div><!-- END column -->
+                                                    <%}); %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div><!-- .widget-body -->
+                            </div><!-- .widget -->
+                        </div><!-- END column -->
 
 
 
-                </div><!-- .row -->
-            </section><!-- .app-content -->
-        </div><!-- .wrap -->
+                    </div><!-- .row -->
+                </section><!-- .app-content -->
+            </div><!-- .wrap -->
 
-    </main>
-    <!--========== END app main -->
+        </main>
+        <!--========== END app main -->
 
-    <%- include('./includes/mainfooter.ejs') %>
+        <%- include('./includes/mainfooter.ejs') %>

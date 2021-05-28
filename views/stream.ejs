@@ -1,26 +1,28 @@
-<%- include('./includes/main.ejs') %>
+<%- include('./includes/head.ejs') %>
+    <title>Live | Admin</title>
+    <%- include('./includes/main.ejs') %>
 
-    <style>
-        .gallery-item {
+        <style>
+            .gallery-item {
 
-            max-height: 280px;
-            height: 280px;
+                max-height: 280px;
+                height: 280px;
 
-            background-color: black;
-        }
+                background-color: black;
+            }
 
-        .videoInsert {
-            width: 275px;
-            height: 280px;
-        }
-    </style>
-    <!-- APP MAIN ==========-->
-    <main id="app-main" class="app-main">
-        <div class="wrap">
-            <section class="app-content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- <div class="mail-toolbar m-b-lg">
+            .videoInsert {
+                width: 275px;
+                height: 280px;
+            }
+        </style>
+        <!-- APP MAIN ==========-->
+        <main id="app-main" class="app-main">
+            <div class="wrap">
+                <section class="app-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- <div class="mail-toolbar m-b-lg">
                             <div class="btn-group" role="group">
                                 <a href="#" onclick="addvideo()" class="btn btn-default">Media Grid</a>
                             </div>
@@ -36,18 +38,18 @@
                                 <a href="#" class="btn btn-default"><i class="fa fa-chevron-right"></i></a>
                             </div>
                         </div> -->
+                        </div>
                     </div>
-                </div>
 
-                <!-- Image Gallery -->
-                <div class="gallery row" id="mainview">
+                    <!-- Image Gallery -->
+                    <div class="gallery row" id="mainview">
 
 
-                </div><!-- END .gallery -->
-            </section><!-- #dash-content -->
-        </div><!-- .wrap -->
-        <!-- APP FOOTER -->
-        <!-- <div class="wrap p-t-0">
+                    </div><!-- END .gallery -->
+                </section><!-- #dash-content -->
+            </div><!-- .wrap -->
+            <!-- APP FOOTER -->
+            <!-- <div class="wrap p-t-0">
             <footer class="app-footer">
                 <div class="clearfix">
                     <ul class="footer-menu pull-right">
@@ -59,164 +61,164 @@
                 </div>
             </footer>
         </div> -->
-        <!-- /#app-footer -->
-    </main>
-    <!--========== END app main -->
+            <!-- /#app-footer -->
+        </main>
+        <!--========== END app main -->
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
-    <script>
-
-
-        //var localhost = "127.0.0.1";
-        var localhost = "128.199.27.55";
-
-        var mainview = document.getElementById('mainview');
-        loadStreams();
-
-        var allAvailableStreams = [];
-        function loadStreams() {
-            console.log("called load stream");
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-
-                    var obj = JSON.parse(this.responseText);
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+        <script>
 
 
+            //var localhost = "127.0.0.1";
+            var localhost = "128.199.27.55";
 
-                    if (obj != null) {
-                        var liveStreams = obj.live;
-                        // document.getElementById("tabledata").innerHTML = '';
-                        for (var strm in liveStreams) {
+            var mainview = document.getElementById('mainview');
+            loadStreams();
 
-                            var publisher = liveStreams[strm].publisher;
-                            var clientId = publisher.clientId;
-                            var stream = publisher.stream;
-                            var startTime = publisher.connectCreated;
-                            var ip = publisher.ip;
-                            var video = publisher.video;
+            var allAvailableStreams = [];
+            function loadStreams() {
+                console.log("called load stream");
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+
+                        var obj = JSON.parse(this.responseText);
 
 
-                            if (!allAvailableStreams.includes(stream)) {
-                                allAvailableStreams.push(stream);
 
-                                const div = document.createElement('div');
+                        if (obj != null) {
+                            var liveStreams = obj.live;
+                            // document.getElementById("tabledata").innerHTML = '';
+                            for (var strm in liveStreams) {
 
-                                div.className = 'col-xs-6 col-sm-4 col-md-3';
-                                var myvframe = '<div class="gallery-item"><div class=""><video class="videoInsert" onmouseover=playVideo("' + stream + '","' + clientId + '")  id="' + clientId + '" controls  poster="http://128.199.27.55:3000/assets/img/brand/logo.jpeg" muted> </video></div><div class="caption">gallery-item Caption</div></div>';
-                                div.innerHTML = myvframe;
-                                mainview.appendChild(div);
+                                var publisher = liveStreams[strm].publisher;
+                                var clientId = publisher.clientId;
+                                var stream = publisher.stream;
+                                var startTime = publisher.connectCreated;
+                                var ip = publisher.ip;
+                                var video = publisher.video;
+
+
+                                if (!allAvailableStreams.includes(stream)) {
+                                    allAvailableStreams.push(stream);
+
+                                    const div = document.createElement('div');
+
+                                    div.className = 'col-xs-6 col-sm-4 col-md-3';
+                                    var myvframe = '<div class="gallery-item"><div class=""><video class="videoInsert" onmouseover=playVideo("' + stream + '","' + clientId + '")  id="' + clientId + '" controls  poster="http://128.199.27.55:3000/assets/img/brand/logo.jpeg" muted> </video></div><div class="caption">gallery-item Caption</div></div>';
+                                    div.innerHTML = myvframe;
+                                    mainview.appendChild(div);
+
+                                }
+
+
+
+                            }
+                            var newavailable = [];
+                            for (var strm in liveStreams) {
+                                var publ = liveStreams[strm].publisher;
+
+                                var stre = publ.stream;
+                                newavailable.push(stre);
+                            }
+
+                            var re = compareArray(allAvailableStreams, newavailable);
+                            if (!(re == "")) {
+                                //alert(re);
+                                allAvailableStreams = [];
+                                document.getElementById("mainview").innerHTML = "";
 
                             }
 
 
 
-                        }
-                        var newavailable = [];
-                        for (var strm in liveStreams) {
-                            var publ = liveStreams[strm].publisher;
-
-                            var stre = publ.stream;
-                            newavailable.push(stre);
-                        }
-
-                        var re = compareArray(allAvailableStreams, newavailable);
-                        if (!(re == "")) {
-                            //alert(re);
-                            allAvailableStreams = [];
-                            document.getElementById("mainview").innerHTML = "";
 
                         }
+
+
 
 
 
 
                     }
+                };
+                xhttp.open("GET", "http://" + localhost + ":8000/api/streams", true);
+                xhttp.send();
 
 
 
+            }
+
+            function compareArray(array1, array2) {
+
+                var a = array1 = array1.filter(val => {
+                    if (!array2.includes(val)) {
+                        return true;
+                    }
+
+                });
+
+                return a;
+            }
+
+            async function playVideo(stream, vid) {
 
 
+                var vurl = "http://" + localhost + ":8000/live/" + stream + '.flv';
 
+
+                if (flvjs.isSupported()) {
+
+                    if (document.getElementById(vid).paused) {
+                        var flvPlayer = flvjs.createPlayer({
+                            type: 'flv',
+                            url: vurl
+                        });
+                        flvPlayer.attachMediaElement(document.getElementById(vid));
+                        flvPlayer.load();
+                        await flvPlayer.play();
+                    }
                 }
-            };
-            xhttp.open("GET", "http://" + localhost + ":8000/api/streams", true);
-            xhttp.send();
+            }
+
+            setInterval(loadStreams, 4000);
+        </script>
 
 
 
-        }
 
-        function compareArray(array1, array2) {
+        <script>
 
-            var a = array1 = array1.filter(val => {
-                if (!array2.includes(val)) {
-                    return true;
-                }
+            var flvPlayer;
 
-            });
+            function playStream(strm_id) {
 
-            return a;
-        }
+                openModald();
 
-        async function playVideo(stream, vid) {
+                var vurl = "http://" + localhost + ":8000/live/" + strm_id + '.flv';
 
-
-            var vurl = "http://" + localhost + ":8000/live/" + stream + '.flv';
-
-
-            if (flvjs.isSupported()) {
-
-                if (document.getElementById(vid).paused) {
-                    var flvPlayer = flvjs.createPlayer({
+                if (flvjs.isSupported()) {
+                    var videoElement = document.getElementById('videoElement');
+                    flvPlayer = flvjs.createPlayer({
                         type: 'flv',
                         url: vurl
                     });
-                    flvPlayer.attachMediaElement(document.getElementById(vid));
+                    flvPlayer.attachMediaElement(videoElement);
                     flvPlayer.load();
-                    await flvPlayer.play();
+                    flvPlayer.play();
                 }
-            }
-        }
 
-        setInterval(loadStreams, 4000);
-    </script>
-
-
-
-
-    <script>
-
-        var flvPlayer;
-
-        function playStream(strm_id) {
-
-            openModald();
-
-            var vurl = "http://" + localhost + ":8000/live/" + strm_id + '.flv';
-
-            if (flvjs.isSupported()) {
-                var videoElement = document.getElementById('videoElement');
-                flvPlayer = flvjs.createPlayer({
-                    type: 'flv',
-                    url: vurl
-                });
-                flvPlayer.attachMediaElement(videoElement);
-                flvPlayer.load();
-                flvPlayer.play();
             }
 
-        }
 
+            function stopvplaying() {
+                console.log("seraj", "playing")
+                flvPlayer.pause();
 
-        function stopvplaying() {
-            console.log("seraj", "playing")
-            flvPlayer.pause();
-
-        }
-    </script>
+            }
+        </script>
 
 
 
-    <%- include('./includes/mainfooter.ejs') %>
+        <%- include('./includes/mainfooter.ejs') %>

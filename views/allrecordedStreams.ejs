@@ -1,263 +1,267 @@
-<%- include('./includes/main.ejs') %>
+<%- include('./includes/head.ejs') %>
+    <title>Recorded Streams | Admin</title>
+    <%- include('./includes/main.ejs') %>
 
-    <!-- APP MAIN ==========-->
-    <main id="app-main" class="app-main">
-        <div class="wrap">
-            <section class="app-content">
-                <div class="row">
+        <!-- APP MAIN ==========-->
+        <main id="app-main" class="app-main">
+            <div class="wrap">
+                <section class="app-content">
+                    <div class="row">
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
 
-                                <div class="modal-body">
-                                    <video height="100%" width="100%" id="videoElement"
-                                        poster="http://128.199.27.55:3000/assets/img/brand/logo.jpeg" controls></video>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" onclick="stopvplaying()" class="btn btn-secondary"
-                                        data-dismiss="modal">Close</button>
+                                    <div class="modal-body">
+                                        <video height="100%" width="100%" id="videoElement"
+                                            poster="http://128.199.27.55:3000/assets/img/brand/logo.jpeg"
+                                            controls></video>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" onclick="stopvplaying()" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
 
-                    <!-- modal -->
-                    <div class="modal fade" id="userModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                        <!-- modal -->
+                        <div class="modal fade" id="userModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
 
-                                <div class="modal-body">
-                                    <div class="card card-nav-tabs">
-                                        <div class="card-header card-header-warning">
-                                            <h1 id="myname">Name</h1>
+                                    <div class="modal-body">
+                                        <div class="card card-nav-tabs">
+                                            <div class="card-header card-header-warning">
+                                                <h1 id="myname">Name</h1>
+                                            </div>
+                                            <div class="card-body">
+                                                <p hidden>Phone : <span id="myphone"></span></p>
+                                                <p>email: <span id="myemail"></span></p>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <p hidden>Phone : <span id="myphone"></span></p>
-                                            <p>email: <span id="myemail"></span></p>
-                                        </div>
+
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
                                     </div>
 
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
 
 
-                    <!-- end modal -->
-
-
+                        <!-- end modal -->
 
 
 
 
-                    <!-- DOM dataTable -->
-                    <div class="col-md-12">
-                        <div class="widget">
-                            <header class="widget-header">
-                                <h4 class="widget-title">Saved Stream's List</h4>
-                            </header><!-- .widget-header -->
-                            <hr class="widget-separator">
-                            <div class="widget-body">
-                                <div class="table-responsive">
-                                    <table id="default-datatable" data-plugin="DataTable" class="table table-striped"
-                                        cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Stream Name</th>
-
-                                                <th>Stream Venue</th>
-
-                                                <th>View Stremmer</th>
-
-                                                <th>View Stream</th>
 
 
-                                                <th>Action</th>
-
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-
-                                            <% streams.forEach(function(el, index) {%>
-
+                        <!-- DOM dataTable -->
+                        <div class="col-md-12">
+                            <div class="widget">
+                                <header class="widget-header">
+                                    <h4 class="widget-title">Saved Stream's List</h4>
+                                </header><!-- .widget-header -->
+                                <hr class="widget-separator">
+                                <div class="widget-body">
+                                    <div class="table-responsive">
+                                        <table id="default-datatable" data-plugin="DataTable"
+                                            class="table table-striped" cellspacing="0" width="100%">
+                                            <thead>
                                                 <tr>
+                                                    <th>Stream Name</th>
 
-                                                    <th>
-                                                        <!-- <a href="#" class="avatar rounded-circle mr-3">
+                                                    <th>Venue</th>
+
+                                                    <th>Stremmer</th>
+
+                                                    <th>Stream</th>
+
+
+                                                    <th>Action</th>
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                                <% streams.forEach(function(el, index) {%>
+
+                                                    <tr>
+
+                                                        <th>
+                                                            <!-- <a href="#" class="avatar rounded-circle mr-3">
                                                             <img alt="Image placeholder" src="../uploads/streamcovers/<%=el.cover_image %>">
                                                         </a> -->
 
-                                                        <span class="name mb-0 text-sm">
-                                                            <i class="fa fa-file-video-o" style="color:red"></i>
-                                                            <%= el.stream_name %>
-                                                        </span>
+                                                            <span class="name mb-0 text-sm">
+                                                                <i class="fa fa-file-video-o" style="color:red"></i>
+                                                                <%= el.stream_name %>
+                                                            </span>
 
-                                                    </th>
+                                                        </th>
 
-                                                    <td>
-                                                        <%= el.venue %>
-                                                    </td>
+                                                        <td>
+                                                            <%= el.venue %>
+                                                        </td>
 
-                                                    <td>
-                                                        <a class="dropdown-item" style="color:blue"
-                                                            onclick="getUserData('<%= el.user_id%>')" href="#">View
-                                                            Streamer</a>
+                                                        <td>
+                                                            <a class="dropdown-item" style="color:blue"
+                                                                onclick="getUserData('<%= el.user_id%>')" href="#">View
+                                                                Streamer</a>
 
-                                                    </td>
+                                                        </td>
 
-                                                    <td>
-                                                        <a class="btn btn-primary"
-                                                            onclick="playStream('<%=el.stream_id%>')" href="#">View
-                                                            Stream</a>
+                                                        <td>
+                                                            <a class="btn btn-primary"
+                                                                onclick="playStream('<%=el.stream_id%>')" href="#">View
+                                                                Stream</a>
 
-                                                    </td>
-
-
-
-                                                    <td class="text-right">
-                                                        <div class="dropdown">
-                                                            <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                                role="button" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <i class="fa fa-ellipsis-v"></i>
-                                                            </a>
-                                                            <div
-                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        </td>
 
 
 
+                                                        <td class="text-center">
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                                    role="button" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fa fa-ellipsis-v"></i>
+                                                                </a>
+                                                                <div
+                                                                    class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
 
-                                                                <form method="GET" action="#">
-
-                                                                    <input name="id" value="<%=el._id %>" type="text"
-                                                                        hidden>
-                                                                    <button class="btn btn-danger"
-                                                                        type="submit">Delete</a>
-                                                                </form>
 
 
+
+                                                                    <form method="GET" action="#">
+
+                                                                        <input name="id" value="<%=el._id %>"
+                                                                            type="text" hidden>
+                                                                        <button class="btn btn-danger"
+                                                                            type="submit">Delete</a>
+                                                                    </form>
+
+
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                    </tr>
 
 
 
 
 
 
-                                                <%}); %>
+                                                    <%}); %>
 
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                            </div><!-- .widget-body -->
-                        </div><!-- .widget -->
-                    </div><!-- END column -->
-
-
-
-                </div><!-- .row -->
-            </section><!-- .app-content -->
-        </div><!-- .wrap -->
-        <script>
-            var videoElement;
-            function openModald(url) {
-                $('#exampleModal').modal('show');
-                videoElement = document.getElementById('videoElement');
-                videoElement.src = url;
-                videoElement.play();
-            }
-
-            function openModalUser(data) {
-                $('#userModal').modal('show');
-                document.getElementById('myname').innerHTML = data.name;
-                document.getElementById('myemail').innerHTML = data.email;
-                document.getElementById('myphone').innerHTML = data.phone;
-                // alert(data.name);
-            }
-
-
-            function playStream(strm_id) {
+                                </div><!-- .widget-body -->
+                            </div><!-- .widget -->
+                        </div><!-- END column -->
 
 
 
-                var vurl = 'http://128.199.27.55:3000/getfilename?streamId=' + strm_id;
-
-
-
-
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-
-                        var obj = JSON.parse(this.responseText);
-
-                        console.log(obj);
-
-                        if (obj.url != null) {
-
-                            var url = "http://128.199.27.55:3000/mystream/live/" + strm_id + "/" + obj.url;
-                            //alert(url);
-                            console.log(url);
-                            openModald(url);
-
-                        } else {
-                            alert("No stream found.");
-                        }
-
-
-
-
-
-
-                    }
-                };
-                xhttp.open("GET", vurl, true);
-                xhttp.send();
-
-            }
-
-
-
-
-            function getUserData(uid) {
-
-
-                // alert("calling");
-                var http = new XMLHttpRequest();
-                var url = 'http://128.199.27.55:3000/admin/userdata';
-                var params = 'id=' + uid;
-                http.open('POST', url, true);
-
-                //Send the proper header information along with the request
-                http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-                http.onreadystatechange = function () {//Call a function when the state changes.
-                    if (http.readyState == 4 && http.status == 200) {
-
-                        var obj = JSON.parse(http.responseText);
-
-                        if (obj != null) {
-                            openModalUser(obj);
-                        }
-
-                    }
+                    </div><!-- .row -->
+                </section><!-- .app-content -->
+            </div><!-- .wrap -->
+            <script>
+                var videoElement;
+                function openModald(url) {
+                    $('#exampleModal').modal('show');
+                    videoElement = document.getElementById('videoElement');
+                    videoElement.src = url;
+                    videoElement.play();
                 }
-                http.send(params);
-            }
+
+                function openModalUser(data) {
+                    $('#userModal').modal('show');
+                    document.getElementById('myname').innerHTML = data.name;
+                    document.getElementById('myemail').innerHTML = data.email;
+                    document.getElementById('myphone').innerHTML = data.phone;
+                    // alert(data.name);
+                }
+
+
+                function playStream(strm_id) {
+
+
+
+                    var vurl = 'http://128.199.27.55:3000/getfilename?streamId=' + strm_id;
+
+
+
+
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+
+                            var obj = JSON.parse(this.responseText);
+
+                            console.log(obj);
+
+                            if (obj.url != null) {
+
+                                var url = "http://128.199.27.55:3000/mystream/live/" + strm_id + "/" + obj.url;
+                                //alert(url);
+                                console.log(url);
+                                openModald(url);
+
+                            } else {
+                                alert("No stream found.");
+                            }
+
+
+
+
+
+
+                        }
+                    };
+                    xhttp.open("GET", vurl, true);
+                    xhttp.send();
+
+                }
+
+
+
+
+                function getUserData(uid) {
+
+
+                    // alert("calling");
+                    var http = new XMLHttpRequest();
+                    var url = 'http://128.199.27.55:3000/admin/userdata';
+                    var params = 'id=' + uid;
+                    http.open('POST', url, true);
+
+                    //Send the proper header information along with the request
+                    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                    http.onreadystatechange = function () {//Call a function when the state changes.
+                        if (http.readyState == 4 && http.status == 200) {
+
+                            var obj = JSON.parse(http.responseText);
+
+                            if (obj != null) {
+                                openModalUser(obj);
+                            }
+
+                        }
+                    }
+                    http.send(params);
+                }
 
 
 
@@ -265,13 +269,13 @@
 
 
 
-            function stopvplaying() {
-                console.log("seraj", "playing")
-                videoElement.pause();
+                function stopvplaying() {
+                    console.log("seraj", "playing")
+                    videoElement.pause();
 
-            }
-        </script>
-    </main>
-    <!--========== END app main -->
+                }
+            </script>
+        </main>
+        <!--========== END app main -->
 
-    <%- include('./includes/mainfooter.ejs') %>
+        <%- include('./includes/mainfooter.ejs') %>
