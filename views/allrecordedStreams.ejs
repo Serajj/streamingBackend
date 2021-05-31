@@ -72,10 +72,11 @@
                                 <hr class="widget-separator">
                                 <div class="widget-body">
                                     <div class="table-responsive">
-                                        <table id="default-datatable" data-plugin="DataTable"
-                                            class="table table-striped" cellspacing="0" width="100%">
+                                        <table id="mydatatable" class="table table-striped" cellspacing="0"
+                                            width="100%">
                                             <thead>
                                                 <tr>
+                                                    <th> </th>
                                                     <th>Stream Name</th>
 
                                                     <th>Venue</th>
@@ -95,8 +96,11 @@
                                                 <% streams.forEach(function(el, index) {%>
 
                                                     <tr>
-
                                                         <th>
+                                                            <%= index + 1 %>
+                                                        </th>
+
+                                                        <td>
                                                             <!-- <a href="#" class="avatar rounded-circle mr-3">
                                                             <img alt="Image placeholder" src="../uploads/streamcovers/<%=el.cover_image %>">
                                                         </a> -->
@@ -106,7 +110,7 @@
                                                                 <%= el.stream_name %>
                                                             </span>
 
-                                                        </th>
+                                                        </td>
 
                                                         <td>
                                                             <%= el.venue %>
@@ -176,7 +180,17 @@
                     </div><!-- .row -->
                 </section><!-- .app-content -->
             </div><!-- .wrap -->
+
+
             <script>
+
+                $.noConflict();
+                jQuery(document).ready(function ($) {
+                    $('#mydatatable').DataTable({
+
+                    });
+                });
+
                 var videoElement;
                 function openModald(url) {
                     $('#exampleModal').modal('show');
