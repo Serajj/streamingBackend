@@ -1297,7 +1297,7 @@
   border: none; }
 
 .dropzone {
-  border: 2px dashed #188ae2; }
+  border: 2px dashed #ff0000; }
 
 body.mce-fullscreen #dash-navbar {
   z-index: 999; }
@@ -1635,11 +1635,11 @@ body.menubar-unfold .app-menu .submenu .menu-icon + .menu-text {
 .app-menu li.active > a,
 .app-menu li:hover > a,
 .app-menu li.menu-heading > a {
-  color: #188ae2; }
+  color: #e21818; }
 
 body.menubar-left .app-menu li.open,
 body.menubar-left .app-menu li.active {
-  border-left-color: #188ae2; }
+  border-left-color: #ff0000; }
 
 .menubar.light .app-menu li.open,
 .menubar.light .app-menu li.active,
@@ -1756,7 +1756,7 @@ body.menubar-top .menubar.dark .app-menu .submenu {
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #188ae2; }
+  color: #ff0000; }
 
 @media (max-width: 767px) {
   body > .navbar .navbar-brand,
@@ -2050,7 +2050,7 @@ body.menubar-left .navbar-container {
     text-align: center;
     font-size: 18px; }
     .action-panel-toggle .fa:hover {
-      color: #188ae2; }
+      color: #ff0000; }
     .action-panel-toggle .fa.fa-chevron-right {
       display: block; }
 
@@ -2120,7 +2120,7 @@ body.menubar-left .navbar-container {
   .app-customizer .nav-tabs > li.active > a,
   .app-customizer .nav-tabs > li.active > a:hover,
   .app-customizer .nav-tabs > li.active > a:focus {
-    border-bottom: 1px solid #188ae2; }
+    border-bottom: 1px solid #ff0000; }
   .app-customizer .tab-pane {
     padding: 16px 16px 0; }
   .app-customizer .radio label {
@@ -2370,9 +2370,9 @@ h3.widget-title {
       margin: 0; }
 
 .sl-primary {
-  border-left-color: #188ae2; }
+  border-left-color: #ff0000; }
   .sl-primary:before, .sl-primary:last-child:after {
-    background-color: #188ae2; }
+    background-color: #ff0000; }
 
 .sl-success {
   border-left-color: #10c469; }
@@ -2414,7 +2414,7 @@ h3.widget-title {
   color: #6a6c6f;
   border: none; }
   .countries-widget .list-group-item.active, .countries-widget .list-group-item:hover, .countries-widget .list-group-item:focus {
-    background: #188ae2;
+    background: #ff0000;
     color: #fff; }
   .countries-widget .list-group-item:last-child {
     margin-bottom: 0; }
@@ -2431,7 +2431,7 @@ h3.widget-title {
   position: relative;
   border: 1px solid transparent; }
   .products-widget .product:hover, .products-widget .product:focus, .products-widget .product.active {
-    border-color: #188ae2; }
+    border-color: #ff0000; }
     .products-widget .product:hover .product-caption, .products-widget .product:focus .product-caption, .products-widget .product.active .product-caption {
       display: block; }
 
@@ -2440,7 +2440,7 @@ h3.widget-title {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #188ae2;
+  background: #ff0000;
   padding: 16px 24px;
   font-weight: 600;
   color: #fff;
@@ -2713,7 +2713,7 @@ td.mail-right {
     text-align: center;
     color: #6a6c6f; }
     .promo-tab a:hover, .promo-tab a:focus, .promo-tab a:active {
-      color: #188ae2; }
+      color: #ff0000; }
 
 .search-result {
   margin-bottom: 24px; }
@@ -2895,12 +2895,12 @@ td.mail-right {
       min-width: 60%; }
 
 .price-box-best {
-  border-top-color: #188ae2; }
+  border-top-color: #ff0000; }
 
 .price-box-best li,
 .price-box-best .box-title,
 .price-box-best .box-title small {
-  color: #188ae2 !important; }
+  color: #ff0000 !important; }
 
 #buttons-demo-page .btn {
   margin-bottom: 24px; }
@@ -2911,20 +2911,20 @@ td.mail-right {
 .theme-primary .navbar-brand,
 .theme-primary .navbar-brand:hover,
 .theme-primary .navbar-brand:focus {
-  color: #188ae2; }
+  color: #ff0000; }
 
 .theme-primary .theme-color {
-  color: #188ae2; }
+  color: #ff0000; }
 
 .theme-primary .menubar .app-menu li.open,
 .theme-primary .menubar .app-menu li.active {
-  border-left-color: #188ae2; }
+  border-left-color: #ff0000; }
 
 .theme-primary .menubar .app-menu li.open > a,
 .theme-primary .menubar .app-menu li.active > a,
 .theme-primary .menubar .app-menu li:hover > a,
 .theme-primary .menubar .app-menu li.menu-heading > a {
-  color: #188ae2; }
+  color: #ff0000; }
 
 .theme-success .navbar-brand,
 .theme-success .navbar-brand:hover,
@@ -3044,13 +3044,13 @@ td.mail-right {
 
 .theme-inverse .menubar .app-menu li.open,
 .theme-inverse .menubar .app-menu li.active {
-  border-left-color: #188ae2; }
+  border-left-color: #ff0000; }
 
 .theme-inverse .menubar .app-menu li.open > a,
 .theme-inverse .menubar .app-menu li.active > a,
 .theme-inverse .menubar .app-menu li:hover > a,
 .theme-inverse .menubar .app-menu li.menu-heading > a {
-  color: #188ae2; }
+  color: #ff0000; }
 
 .theme-dark .navbar-brand,
 .theme-dark .navbar-brand:hover,
@@ -3062,13 +3062,13 @@ td.mail-right {
 
 .theme-dark .menubar .app-menu li.open,
 .theme-dark .menubar .app-menu li.active {
-  border-left-color: #188ae2; }
+  border-left-color: #ff0000; }
 
 .theme-dark .menubar .app-menu li.open > a,
 .theme-dark .menubar .app-menu li.active > a,
 .theme-dark .menubar .app-menu li:hover > a,
 .theme-dark .menubar .app-menu li.menu-heading > a {
-  color: #188ae2; }
+  color: #ff0000; }
 
 .theme-deepOrange .navbar-brand,
 .theme-deepOrange .navbar-brand:hover,
