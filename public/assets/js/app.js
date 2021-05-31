@@ -13,8 +13,8 @@
 			themes: ['light', 'dark']
 		},
 		navbar: {
-			theme: 'primary',
-			themes: ['primary', 'success', 'warning', 'danger', 'pink', 'purple', 'inverse', 'dark']
+			theme: 'dark',
+			themes: ['dark', 'success', 'warning', 'danger', 'pink', 'purple', 'inverse', 'primary']
 		}
 	};
 
@@ -594,13 +594,14 @@ function addNewTheme(themeName) {
 		app.saveSettings();
 		location.reload();
 	}
+
 }
 
 //= public function for removing themes
 function removeTheme(themeName) {
 	var app = window.app,
 		index = app.settings.navbar.themes.indexOf(themeName);
-	if (index !== -1 && themeName !== 'primary') {
+	if (index !== -1 && themeName !== 'dark') {
 		app.settings.navbar.themes.splice(index, 1);
 
 		// if the removed theme is the applied theme then fallback to primary
@@ -611,3 +612,4 @@ function removeTheme(themeName) {
 		location.reload();
 	}
 }
+
