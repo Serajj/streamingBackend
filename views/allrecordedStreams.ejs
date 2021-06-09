@@ -207,7 +207,7 @@
 
 
 
-                    var vurl = 'http://45.76.179.0:3000/getfilename?streamId=' + strm_id;
+                    var vurl = 'http://207.148.73.163:3000/getfilename?streamId=' + strm_id;
 
 
 
@@ -222,7 +222,7 @@
 
                             if (obj.url != null) {
 
-                                var url = "http://45.76.179.0:3000/mystream/live/" + strm_id + "/" + obj.url;
+                                var url = "http://207.148.73.163:3000/mystream/live/" + strm_id + "/" + obj.url;
                                 //alert(url);
                                 console.log(url);
                                 openModald(url);
@@ -251,7 +251,7 @@
 
                     // alert("calling");
                     var http = new XMLHttpRequest();
-                    var url = 'http://45.76.179.0:3000/admin/userdata';
+                    var url = 'http://207.148.73.163:3000/admin/userdata';
                     var params = 'id=' + uid;
                     http.open('POST', url, true);
 
