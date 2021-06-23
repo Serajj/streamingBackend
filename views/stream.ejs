@@ -15,6 +15,55 @@
                 width: 275px;
                 height: 280px;
             }
+
+            .round {
+                position: absolute;
+                height: 50px;
+                width: 50px;
+                z-index: 12;
+                right: 0;
+                bottom: 40px;
+                display: none;
+            }
+
+            .round label {
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 50%;
+                cursor: pointer;
+                height: 28px;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 28px;
+            }
+
+            .round label:after {
+                border: 2px solid #fff;
+                border-top: none;
+                border-right: none;
+                content: "";
+                height: 6px;
+                left: 7px;
+                opacity: 0;
+                position: absolute;
+                top: 8px;
+                transform: rotate(-45deg);
+                width: 12px;
+            }
+
+            .round input[type="checkbox"] {
+                visibility: hidden;
+            }
+
+            .round input[type="checkbox"]:checked+label {
+                background-color: #4c00ff;
+                border-color: #4c00ff;
+            }
+
+            .round input[type="checkbox"]:checked+label:after {
+                opacity: 1;
+            }
         </style>
         <!-- APP MAIN ==========-->
         <main id="app-main" class="app-main">
@@ -45,6 +94,18 @@
                     <div class="gallery row" id="mainview">
 
 
+
+                        <!-- <div class="round" onmouseover="check(this)"><input type="checkbox" id="checkbox"
+                                name="checkedvalues[]" value="' + stream + '" /><label for="checkbox"></label></div>
+
+                        <div class="round" onmouseover="check(this)"><input type="checkbox" id="checkbox"
+                                name="checkedvalues[]" /><label for="checkbox"></label>
+                        </div> -->
+
+
+
+
+
                     </div><!-- END .gallery -->
                 </section><!-- #dash-content -->
             </div><!-- .wrap -->
@@ -70,7 +131,7 @@
         <script>
 
 
-            //var localhost = "127.0.0.1";
+            // var localhost = "127.0.0.1";
             var localhost = "207.148.73.163";
 
             var mainview = document.getElementById('mainview');
@@ -106,7 +167,7 @@
                                     const div = document.createElement('div');
 
                                     div.className = 'col-xs-6 col-sm-4 col-md-3';
-                                    var myvframe = '<div class="gallery-item"><div class=""><video class="videoInsert" onmouseover=playVideo("' + stream + '","' + clientId + '")  id="' + clientId + '" controls  poster="http://207.148.73.163:3000/assets/img/brand/logo.jpeg" muted> </video></div><div class="caption">gallery-item Caption</div></div>';
+                                    var myvframe = '<div class="gallery-item"><div class="round" onmouseover="check(this)"><input type="checkbox" id="checkbox" name="checkedvalues[]"  value="' + stream + '"/><label for="checkbox"></label></div><div class=""><video class="videoInsert" onmouseover=playVideo("' + stream + '","' + clientId + '")  id="' + clientId + '" controls  poster="http://207.148.73.163:3000/assets/img/brand/logo.jpeg" muted> </video></div></div>';
                                     div.innerHTML = myvframe;
                                     mainview.appendChild(div);
 
@@ -217,6 +278,154 @@
                 flvPlayer.pause();
 
             }
+
+        </script>
+
+        <script>
+            // handle events and mouse
+
+
+            const selectIcons = document.getElementById("selectallicon");
+            selectIcons.style.display = "block";
+            const deselectIcons = document.getElementById("deselectallicon");
+            const importIcon = document.getElementById("importicon");
+
+            function hideShowIcons() {
+                var x = document.getElementById("deselectallicon");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                    $(".round").fadeIn();
+                    $(".round").fadeIn("slow");
+                    $(".round").fadeIn(3000);
+                    // $(".round").css("display", "block");
+                    importIcon.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                    $(".round").fadeOut();
+                    $(".round").fadeOut("slow");
+                    $(".round").fadeOut(3000);
+                    importIcon.style.display = "none";
+                }
+            }
+
+
+            //select and deselect handle
+            var sdihtml = document.getElementById('sdtext').innerHTML;
+
+            $("#sdtext").toggle(
+                function () { selectAll(); },
+                function () { deselectAll(); },
+            );
+            function selectAll() {
+                selectAllStream();
+                $("#sdtext").html("Deselect All");
+            }
+
+            function deselectAll() {
+                deselectAllStream();
+                $("#sdtext").html("Select All");
+            }
+
+
+
+            //import button icon
+
+            function importStreamsinEditorsConsole() {
+                importStream();
+            }
+
+
+
+
+
+
+
+
+            //handleshortcuts
+
+            let keyboard = document.body;
+            keyboard.addEventListener('keydown', e => {
+                e.preventDefault();
+
+                if (e.key == 'a' && (e.metaKey || e.ctrlKey)) {
+                    //alert("Selecting All");
+                    selectAllStream();
+
+                }
+
+                if (e.key == 'd' && (e.metaKey || e.ctrlKey)) {
+                    //alert("Selecting All");
+                    deselectAllStream();
+
+                }
+
+                if (e.key == 'i' && (e.metaKey || e.ctrlKey)) {
+                    //alert("Selecting All");
+                    importStream();
+
+                }
+
+                console.log(e);
+            })
+
+
+
+
+            //select on mouse drag function
+
+            function check(box) {
+                if (mouseDown) {
+                    var chks = box.querySelectorAll("input[type='checkbox']");
+                    var result = Array.prototype.every.call(chks, function (c) {
+                        return c.checked = 1;
+                    });
+                    //console.log(result);
+                    // box.checked = 1; //- box.checked;
+                    // box.checked = 1;
+                    // ^ If you only want to turn them on, use this.
+                }
+            }
+
+            var mouseDown = 0;
+            document.body.onmousedown = function () { ++mouseDown; }
+            document.body.onmouseup = function () { --mouseDown; }
+
+            function selectAllStream() {
+
+                let b = document.getElementsByName("checkedvalues[]");
+                b.forEach(ele => {
+                    ele.checked = true;
+                })
+
+            }
+
+            function deselectAllStream() {
+                let b = document.getElementsByName("checkedvalues[]");
+                b.forEach(ele => {
+                    ele.checked = false;
+                })
+                console.log(b);
+
+            }
+
+
+            function importStream() {
+                let yourArray = [];
+
+                let allchecked = document.getElementsByName("checkedvalues[]");
+                allchecked.forEach(ele => {
+                    if (ele.checked) {
+                        yourArray.push(ele.value);
+                    }
+                })
+
+
+
+                console.log(yourArray.length);
+
+                alert(yourArray.length + " streams importing in editor's console");
+            }
+
         </script>
 
 

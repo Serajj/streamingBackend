@@ -20,6 +20,8 @@ datatable -->
 <!-- endbuild -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
 <script src="../libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
+</script>
 <script>
     Breakpoints();
 </script>
@@ -75,6 +77,27 @@ datatable -->
                 </ul>
 
                 <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
+                    <li class="nav-item dropdown hidden-float" id="selectallicon" onclick="hideShowIcons()"
+                        style="display:none">
+                        <a href="javascript:void(0)" aria-expanded="false">
+                            <i class="zmdi zmdi-hc-lg zmdi-check-all"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown hidden-float" id="deselectallicon" style="display:none">
+                        <a href="javascript:void(0)" aria-expanded="false" style="min-width: 104px;">
+                            <span id="sdtext"
+                                style="width:100%;border:2px solid white;border-radius:50px;padding:7px;font-size:10px">Select
+                                All</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown hidden-float" id="importicon" style="display:none"
+                        onclick="importStreamsinEditorsConsole()">
+                        <a href="javascript:void(0)" aria-expanded="false">
+                            <i class="zmdi zmdi-hc-lg zmdi-upload"></i>
+                        </a>
+                    </li>
+
                     <li class="nav-item dropdown hidden-float">
                         <a href="javascript:void(0)" data-toggle="collapse" data-target="#navbar-search"
                             aria-expanded="false">
