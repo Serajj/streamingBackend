@@ -1,12 +1,15 @@
 const user = require("../model/user");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { TOKEN_SECRET_KEY } = require("../config");
+const { TOKEN_SECRET_KEY, transporter, FROM_EMAIL } = require("../config");
 const saveStreamModel = require("../model/saveStreamModel");
 const streamModel = require("../model/streamModel");
 var shortid = require('shortid');
 const socialLoginModel = require("../model/socialLoginModel");
 const path = require('path');
+const nodemailer = require('nodemailer');
+var rn = require('random-number');
+
 
 
 exports.register = async (req, res, next) => {
@@ -14,7 +17,7 @@ exports.register = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(body.password, salt)
     body.password = passwordHash;
-    const { name, phone, type, email, password } = body;
+    const { firstname,lastname, phone, type, email, password } = body;
 
     console.log(req.body)
 
@@ -24,12 +27,43 @@ exports.register = async (req, res, next) => {
         return res.status(403).json({ error: "Email already exist !" })
     }
 
-    const newUser = new user({
-        name, phone, type, email, password
-    })
+    var options = {
+        min:  1000
+      , max:  9999
+      , integer: true
+      }
 
+      let otp =rn(options) // example outputs → -187, 636
+      
+      FROM_EMAIL
+
+
+    let fromMail = FROM_EMAIL;
+    let toMail = email;
+    let subject = 'Streaming App Email verification';
+    let text = "verification  OTP : "+otp;
+
+    let mailOptions = {
+        from: fromMail,
+        to: toMail,
+        subject: subject,
+        text: text
+        };
+
+    transporter.sendMail(mailOptions, (error, response) => {
+        if (error) {
+            console.log(error);
+        }
+        console.log(response)
+        });
+
+
+    const newUser = new user({
+        firstname,lastname, phone, type,otp,email, password
+    })
+//console.log(newUser)
     try {
-        await newUser.save();
+       await newUser.save();
 
         const token = getSignInToken(newUser);
 
@@ -44,7 +78,11 @@ exports.register = async (req, res, next) => {
 exports.socialUserInfo = async (req, res, next) => {
     const body = req.body;
 
-    if (!body.name) {
+    if (!body.firstname) {
+        res.status(422).json({ success: false, message: "Please Provide  name" });
+    }
+
+    if (!body.lastname) {
         res.status(422).json({ success: false, message: "Please Provide  name" });
     }
     if (!body.email) {
@@ -64,7 +102,7 @@ exports.socialUserInfo = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash("mynewpassword", salt)
     body.password = passwordHash;
-    const { name, type, email, token, password } = body;
+    const { firstname,lastname,type, email, password} = body;
     const phone = "9140327455";
     console.log(req.body)
 
@@ -76,7 +114,7 @@ exports.socialUserInfo = async (req, res, next) => {
     }
 
     const newUser = new socialLoginModel({
-        name, phone, type, email, token, password
+        firstname,lastname, phone, type, email, token, password
     })
 
     try {
@@ -105,14 +143,98 @@ exports.login = async (req, res, next) => {
     if (!isValid) {
         return res.status(405).json({ error: "Incorrect Password" })
     }
-
-
     else {
+        console.log(checkUser.verified);
+        console.log("Hello");
+
+        if(!checkUser.verified){
+            return res.status(200).json({ message: "Verify Email First !" })
+        }
         const token = getSignInToken(checkUser);
         return res.status(200).json({ success: true, message: "Login Successful !!", token: token, data: getUserData(checkUser) })
     }
 
 }
+
+
+exports.verifyOtp = async (req, res, next) => {
+    const { email, otp } = req.body;
+
+    const checkUser = await user.findOne({ email });
+
+    if (!checkUser) {
+        return res.status(403).json({ error: "Invalid User!" })
+    }
+    else {
+   
+        if(!checkUser.otp == ""+otp){
+            return res.status(200).json({ message: "Invalid OTP !" })
+        }
+        let updatedUser = await user.updateOne({email:email}, { verified: true });
+
+        const token = getSignInToken(checkUser);
+        return res.status(200).json({ success: true, message: "Login Successful !!", token: token, data: getUserData(checkUser) })
+    }
+
+}
+
+
+
+exports.sendOtp = async (req, res, next) => {
+     const body=req.body;
+    if (!body.email) {
+        res.status(422).json({ success: false, message: "Please Provide  email" });
+    }
+
+    const { email} = req.body;
+
+    const checkUser = await user.findOne({ email });
+
+    if (!checkUser) {
+        return res.status(403).json({ error: "Email not exist please register first." })
+    }
+    else {
+
+        var options = {
+            min:  1000
+          , max:  9999
+          , integer: true
+          }
+    
+        let otp =rn(options) // example outputs → -187, 636
+          
+       let updatedUser = await user.updateOne({email:email}, { otp: otp });
+       console.log(otp);
+       console.log(updatedUser);
+    
+        let fromMail = FROM_EMAIL;
+        let toMail = email;
+        let subject = 'Streaming App Email verification';
+        let text = "verification  OTP : "+otp;
+    
+        let mailOptions = {
+            from: fromMail,
+            to: toMail,
+            subject: subject,
+            text: text
+            };
+    
+        transporter.sendMail(mailOptions, (error, response) => {
+            if (error) {
+                console.log(error);
+            }
+            console.log(response)
+            });
+
+
+        return res.status(200).json({ success: true, message: "OTP has been sent to your email"})
+    }
+
+}
+
+
+
+
 
 
 exports.getStream = async (req, res) => {
@@ -198,7 +320,8 @@ getSignInToken = user => {
         id: user.id,
         phone: user.phone,
         name: user.name,
-        email: user.email
+        email: user.email,
+        verified: user.verified
     }, TOKEN_SECRET_KEY, { expiresIn: "6h" })
 }
 
@@ -207,7 +330,8 @@ getUserData = user => {
         id: user.id,
         phone: user.phone,
         name: user.name,
-        email: user.email
+        email: user.email,
+        verified: user.verified
     })
 }
 

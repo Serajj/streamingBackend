@@ -3,9 +3,12 @@ const Schema = mongoose.Schema;
 
 
 const userSchema = new Schema({
-    name: { type: String, required: true },
+    firstname: { type: String, required: true },
+    lastname: { type: String, required: true },
     phone: { type: String, required: true },
     type: { type: String, required: true },
+    otp: { type: String, required: true },
+    verified: { type: Boolean, default:false},
     email: {
         type: String,
         required: true,

@@ -12,7 +12,12 @@ module.exports = (req, res, next) => {
             try {
                 const user = jwt.verify(token, TOKEN_SECRET_KEY);
                 req.user = user;
-                return next();
+                if(user.verified){
+                    return next();
+                }else{
+                    return res.status(500).json({ success:false,message: "Verify Email First !" })
+                }
+                
             } catch (e) {
                 return res.status(500).json({ message: "Invalid Token" })
             }
