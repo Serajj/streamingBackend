@@ -272,6 +272,7 @@ exports.sendOtp = async (req, res, next) => {
                 console.log(error);
             }
             console.log(response)
+            return res.status(200).json({ success: true, message: "OTP has been sent to your email.",response:response})
             });
 
 
