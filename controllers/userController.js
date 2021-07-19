@@ -267,16 +267,17 @@ exports.sendOtp = async (req, res, next) => {
             text: text
             };
     
-        transporter.sendMail(mailOptions, (error, response) => {
+          transporter.sendMail(mailOptions, (error, response) => {
             if (error) {
                 console.log(error);
+            return res.status(200).json({ success: false, message: "Failed to send otp.",error:error})
             }
             console.log(response)
             return res.status(200).json({ success: true, message: "OTP has been sent to your email.",response:response})
             });
 
 
-        return res.status(200).json({ success: true, message: "OTP has been sent to your email"})
+        //return res.status(200).json({ success: true, message: "OTP has been sent to your email"})
     }
 
 }
