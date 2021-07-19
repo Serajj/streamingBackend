@@ -1,7 +1,7 @@
 let nodemailer= require('nodemailer');
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 487,
+    port: 465,
     secure: true,
     auth: {
         user: "rajalam2372@gmail.com" ,
