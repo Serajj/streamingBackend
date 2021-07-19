@@ -9,6 +9,7 @@ const socialLoginModel = require("../model/socialLoginModel");
 const path = require('path');
 const nodemailer = require('nodemailer');
 var rn = require('random-number');
+const assignModel = require("../model/assignModel");
 
 
 
@@ -106,15 +107,19 @@ exports.socialUserInfo = async (req, res, next) => {
     const phone = "9140327455";
     console.log(req.body)
 
-    const checkUser = await socialLoginModel.findOne({ email });
+    const checkUser = await user.findOne({ email });
 
     if (checkUser) {
         const tsoken = getSignInToken(checkUser);
         return res.status(200).json({ success: true, message: "logged In Successfully !!", token: tsoken, data: getUserData(checkUser) })
     }
 
-    const newUser = new socialLoginModel({
-        firstname,lastname, phone, type, email, token, password
+
+
+    const otp = body.token;
+    const verified =true;
+    const newUser = new user({
+        firstname,lastname, phone, type,otp,verified,email, password
     })
 
     try {
@@ -141,14 +146,14 @@ exports.login = async (req, res, next) => {
     const isValid = await bcrypt.compare(password, checkUser.password);
     console.log(isValid);
     if (!isValid) {
-        return res.status(405).json({ error: "Incorrect Password" })
+        return res.status(405).json({success:false, error: "Incorrect Password" })
     }
     else {
         console.log(checkUser.verified);
         console.log("Hello");
 
         if(!checkUser.verified){
-            return res.status(200).json({ message: "Verify Email First !" })
+            return res.status(200).json({success:false, message: "Verify Email First !" })
         }
         const token = getSignInToken(checkUser);
         return res.status(200).json({ success: true, message: "Login Successful !!", token: token, data: getUserData(checkUser) })
@@ -167,13 +172,56 @@ exports.verifyOtp = async (req, res, next) => {
     }
     else {
    
-        if(!checkUser.otp == ""+otp){
-            return res.status(200).json({ message: "Invalid OTP !" })
+        if(!(checkUser.otp == otp)){
+            return res.status(200).json({success:false, message: "Invalid OTP !" })
         }
         let updatedUser = await user.updateOne({email:email}, { verified: true });
 
         const token = getSignInToken(checkUser);
         return res.status(200).json({ success: true, message: "Login Successful !!", token: token, data: getUserData(checkUser) })
+    }
+
+}
+
+
+exports.verifyOtpAndChangePassword = async (req, res, next) => {
+
+    const body = req.body;
+ 
+
+    if (!body.password) {
+        res.status(422).json({ success: false, message: "Please Provide new password" });
+    }
+
+    if (!body.otp) {
+        res.status(422).json({ success: false, message: "Please Provide OTP" });
+    }
+    if (!body.email) {
+        res.status(422).json({ success: false, message: "Please Provide email" });
+    }
+  
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(body.password, salt)
+    body.password = passwordHash;
+    const { email, otp ,password} = req.body;
+
+    const checkUser = await user.findOne({ email });
+
+    if (!checkUser) {
+        return res.status(200).json({ success:false,error: "Invalid User!" })
+    }
+    else {
+        console.log(checkUser.otp == otp);
+        if(!(checkUser.otp == otp)){
+            return res.status(200).json({ success:false,message: "Invalid OTP !" })
+        }else{
+
+            await user.updateOne({email:email}, { password: password });
+
+        return res.status(200).json({ success: true, message: "Password updated successfully!,Please Login !!" })
+        }
+
+        
     }
 
 }
@@ -343,5 +391,34 @@ checkUniqueStreamId = streamId => {
         }
         return "not unique";
     });
+}
+
+
+
+exports.testApi = async (req, res, next) => {
+   
+
+   
+    user.find(function (err, socialUsers) {
+
+
+        assignModel.find().populate('streamer').populate('editor').// only return the Persons name
+        exec(function (err, story) {
+
+    return res.status(200).json({ success: true, message: "Login Successful !!",assign:story})
+    
+      });
+
+
+
+     
+
+
+    });
+
+    
+    
+    
+
 }
 

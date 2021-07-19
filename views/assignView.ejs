@@ -1,5 +1,5 @@
 <%- include('./includes/head.ejs') %>
-    <title>Directors | Admin</title>
+    <title>Assigned | Admin</title>
     <%- include('./includes/main.ejs') %>
 
         <!-- APP MAIN ==========-->
@@ -13,12 +13,12 @@
                                 <header class="widget-header">
                                     <div class="row">
                                         <div class="col-md-10">
-                                            <h4 class="widget-title">Director's List</h4>
+                                            <h4 class="widget-title">Assigned Director/Streamer's List</h4>
                                            
                                         </div>
                                         <div class="col-md-2">
                                             
-                                            <button class="btn btn-primary" onclick="openModald()" style="float: left;">Add Directors</button>
+                                            <button class="btn btn-primary" onclick="openModald()" style="float: left;">New Assign</button>
                                         </div>
                                     </div>
                                 </header><!-- .widget-header -->
@@ -29,32 +29,34 @@
                                             class="table table-striped" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
+                                                    <th>Director</th>
 
-                                                    <th>Email</th>
+                                                    <th>Streamer</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Name</th>
+                                                    <th>Director</th>
 
-                                                    <th>Email</th>
+                                                    <th>Streamer</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
 
-                                                <% users.forEach(function(el, index) {%>
+                                                <% assign.forEach(function(el, index) {%>
 
                                                     <tr>
 
                                                         <td>
-                                                            <%= el.firstname + " " + el.lastname %>
+                                                            <%= el.editor.firstname + " " + el.editor.lastname %><br>
+                                                            <%= el.editor.email%>
                                                         </td>
 
                                                         <td>
-                                                            <%= el.email %>
+                                                            <%= el.streamer.firstname + " " + el.streamer.lastname %><br>
+                                                            <%= el.streamer.email%>
                                                         </td>
 
 
@@ -113,28 +115,31 @@
                   <div class="modal-content">
 
                       <div class="modal-body">
-                        <form id="idForm" action="/admin/addeditor" method="POST">
+                        <form id="idForm" action="/admin/assign" method="POST">
                             <div class="form-group">
-                                <input id="sign-in-email" type="text" name="firstname" class="form-control" placeholder="First Name" required>
+                                <label for="editor">Select Editor</label>
+                                <select id="sign-in-email" type="text" name="eid" class="form-control" required>
+                                    <% users.forEach(function(st, index) {%>
+
+                                        <% if (st.type=="editor") { %>
+
+                                    <option value="<%= st.id %>"><%= st.firstname + " "+ st.lastname + " ("+st.email+" )" %></option>
+
+                                    <%} }); %>
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <input id="sign-in-email" type="text" name="lastname" class="form-control" placeholder="Last Name" required>
-                            </div>
+                                <label for="streamer">Select Streamer</label>
+                                <select id="sign-in-email" type="text" name="sid" class="form-control" >
+                                    <% users.forEach(function(st, index) {%>
 
-                            <div class="form-group">
-                                <input id="sign-in-email" type="text" name="phone" class="form-control" placeholder="Phone" required>
-                            </div>
+                                        <% if (st.type=="streamer") { %>
 
-                            <div class="form-group">
-                                <input id="sign-in-email" type="email" name="email" class="form-control" placeholder="Email" required>
-                                <input id="sign-in-email" type="text" name="type" class="form-control" value="editor" style="display:none">
+                                    <option value="<%= st.id %>"><%= st.firstname + " "+ st.lastname + " ("+st.email+" )" %></option>
 
-                            </div>
-            
-                            <div class="form-group">
-                                <input id="sign-in-password" name="password" type="password" class="form-control"
-                                    placeholder="Password" required>
+                                    <%} }); %>
+                                </select>
                             </div>
             
                           
@@ -143,7 +148,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="submit" class="btn btn-danger"
-                              >Submit</button><button type="button" class="btn btn-secondary"
+                              >Assign</button><button type="button" class="btn btn-secondary"
                               data-dismiss="modal">Close</button>
 
                       </div>

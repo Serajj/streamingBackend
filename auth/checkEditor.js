@@ -1,15 +1,17 @@
 
-const checkAuth = (req, res, next) => {
+const checkEditor = (req, res, next) => {
     let token = req.session;
     if (token) {
         // Remove Bearer from string
         if (token.loggedin && token.serajisagoodprogrammer == "ofcourse" && token.firstname != null) {
 
-            if(token.type=="admin"){
+            if(token.type=="editor"){
                 next();
             }else{
-                res.redirect('/editor');
+                return res.status(403).json({ message: "Access denied !" });
+
             }
+           
             console.log("hello dear" + token.firstname);
 
         } else {
@@ -22,5 +24,5 @@ const checkAuth = (req, res, next) => {
 }
 
 module.exports = {
-    checkAuth
+    checkEditor
 }

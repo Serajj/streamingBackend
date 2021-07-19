@@ -20,7 +20,7 @@ const io = new Server(server);
 
 
 const adminRouter = require('./routes/adminRoute');
-
+const editorRouter = require('./routes/editorRoute')
 const testRouter = require('./routes/testRouter');
 var dateFormat = require('dateformat');
 
@@ -97,6 +97,7 @@ app.use(session({
 
 
 app.use('/admin', adminRouter);
+app.use('/editor', editorRouter);
 
 app.use('/test', testRouter);
 

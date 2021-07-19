@@ -211,7 +211,7 @@ datatable -->
                 </div>
                 <div class="media-body">
                     <div class="foldable">
-                        <h5><a href="javascript:void(0)" class="username">John Doe</a></h5>
+                        <h5><a href="javascript:void(0)" class="username">Admin</a></h5>
                         <ul>
                             <li class="dropdown">
                                 <a href="javascript:void(0)" class="dropdown-toggle usertitle" data-toggle="dropdown"
@@ -242,7 +242,7 @@ datatable -->
                                     <li>
                                         <a class="text-color" href="/admin/logout">
                                             <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
-                                            <span>Logout</span>
+                                            <span>Logout <%=sessiondata.firstname%></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -265,13 +265,27 @@ datatable -->
                         </a>
                     </li>
 
-                    <li>
-                        <a href="/admin/streams">
-                            <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
-                            <span class="menu-text">Live Streams</span>
-                        </a>
-                    </li>
 
+                    <% if(sessiondata.type=="admin"){ %>
+                        <li>
+                            <a href="/admin/streams">
+                                <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
+                                <span class="menu-text">Live Streams</span>
+                            </a>
+                        </li>
+    
+                      <% } else{ %>  
+                        <li>
+                            <a href="/editor/streams">
+                                <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
+                                <span class="menu-text">Assigned Streams</span>
+                            </a>
+                        </li>
+    
+                     <% } %>
+
+
+                     <% if(sessiondata.type=="admin"){ %>
                     <li>
                         <a href="/admin/editors">
                             <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
@@ -279,13 +293,17 @@ datatable -->
                         </a>
                     </li>
 
+                    <% } %>
 
+                    <% if(sessiondata.type=="admin"){ %>
                     <li>
                         <a href="/admin/stremers">
                             <i class="menu-icon zmdi zmdi-inbox zmdi-hc-lg"></i>
                             <span class="menu-text">Streamers</span>
                         </a>
                     </li>
+
+                    <% } %>
                     <!-- <li>
                         <a href="/admin/task">
                             <i class="menu-icon zmdi zmdi-inbox zmdi-hc-lg"></i>
@@ -295,13 +313,25 @@ datatable -->
 
 
 
-
+                    <% if(sessiondata.type=="admin"){ %>
                     <li>
                         <a href="/admin/allstreams">
                             <i class="menu-icon zmdi zmdi-inbox zmdi-hc-lg"></i>
                             <span class="menu-text">Saved Streams</span>
                         </a>
                     </li>
+
+                    <% } else{ %>  
+
+                        <li>
+                            <a href="/editor/allstreams">
+                                <i class="menu-icon zmdi zmdi-inbox zmdi-hc-lg"></i>
+                                <span class="menu-text">My Saved Streams</span>
+                            </a>
+                        </li>
+
+                        <% } %>
+
                 </ul><!-- .app-menu -->
             </div><!-- .menubar-scroll-inner -->
         </div><!-- .menubar-scroll -->
