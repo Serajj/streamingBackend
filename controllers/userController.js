@@ -152,9 +152,9 @@ exports.login = async (req, res, next) => {
         console.log(checkUser.verified);
         console.log("Hello");
 
-        if(!checkUser.verified){
-            return res.status(200).json({success:false, message: "Verify Email First !" })
-        }
+        // if(!checkUser.verified){
+        //     return res.status(200).json({success:false, message: "Verify Email First !" })
+        // }
         const token = getSignInToken(checkUser);
         return res.status(200).json({ success: true, message: "Login Successful !!", token: token, data: getUserData(checkUser) })
     }
