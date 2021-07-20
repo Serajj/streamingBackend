@@ -2,7 +2,7 @@ const express = require("express");
 
 const { checkAuth } = require('../auth/checklogin');
 
-const { loginView, indexView, streamView, loginPostView, liveStreamView, editorView, taskView, deleteUser, allrecordedView, userData, editorPostView, assignView, assignPostView } = require("../controllers/adminController");
+const { loginView, indexView, streamView, loginPostView, liveStreamView, editorView, taskView, deleteUser, allrecordedView, userData, editorPostView, assignView, assignPostView, deleteAssign, deleteRecordedStream, updateUser } = require("../controllers/adminController");
 
 
 const router = express.Router();
@@ -19,12 +19,17 @@ router.post('/addeditor', editorPostView);
 
 router.post('/deleteUser', checkAuth, deleteUser);
 
+router.post('/updateUser', checkAuth, updateUser);
+
+
 router.post('/userdata', checkAuth, userData);
 
 router.get('/streams', checkAuth, liveStreamView
 );
 
 router.get('/allstreams', checkAuth, allrecordedView);
+router.post('/deleteStream', checkAuth, deleteRecordedStream);
+
 
 
 router.get('/stremers', checkAuth, streamView);
@@ -37,6 +42,9 @@ router.get('/task', checkAuth, taskView);
 router.get('/assign', checkAuth, assignView);
 
 router.post('/assign', checkAuth, assignPostView);
+
+router.post('/deleteAssign', checkAuth, deleteAssign);
+
 
 
 

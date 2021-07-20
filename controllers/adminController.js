@@ -119,6 +119,22 @@ const loginPostView = async (req, res, next) => {
 
 }
 
+const updateUser = (req, res, next) => {
+
+    if (!req.body.myid) {
+        return redirect('/admin');
+    }
+    const { firstname, lastname ,email,phone } = req.body;
+
+    console.log(req.body.id);
+    user.findByIdAndUpdate({ _id: req.body.myid },{firstname,lastname,email,phone}, function (err) {
+
+        backURL = req.header('Referer') || '/admin';
+
+        return res.redirect(backURL);
+
+    });
+}
 
 const deleteUser = (req, res, next) => {
 
@@ -134,6 +150,22 @@ const deleteUser = (req, res, next) => {
 
     });
 }
+
+const deleteAssign = (req, res, next) => {
+
+    if (!req.body.id) {
+        return redirect('/admin');
+    }
+    console.log(req.body.id);
+    assignModel.findOneAndRemove({ _id: req.body.id }, function (err) {
+
+        backURL = req.header('Referer') || '/admin';
+
+        return res.redirect(backURL);
+
+    });
+}
+
 
 const userData = (req, res, next) => {
 
@@ -175,6 +207,21 @@ const allrecordedView = (req, res, next) => {
 
     }).sort({ "_id": -1 });
 
+}
+
+const deleteRecordedStream = (req, res, next) => {
+
+    if (!req.body.id) {
+        return redirect('/admin');
+    }
+    console.log(req.body.id);
+    streamModel.findOneAndRemove({ _id: req.body.id }, function (err) {
+
+        backURL = req.header('Referer') || '/admin';
+
+        return res.redirect(backURL);
+
+    });
 }
 
 const streamView = (req, res, next) => {
@@ -297,5 +344,8 @@ module.exports = {
     userData,
     editorPostView,
     assignView,
-    assignPostView
+    assignPostView,
+    deleteAssign,
+    deleteRecordedStream,
+    updateUser
 }

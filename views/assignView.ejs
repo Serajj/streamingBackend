@@ -45,7 +45,9 @@
                                             </tfoot>
                                             <tbody>
 
-                                                <% assign.forEach(function(el, index) {%>
+                                                <% assign.forEach(function(el, index) {
+                                                    if(!(el.editor==null || el.streamer==null)){
+                                                    %>
 
                                                     <tr>
 
@@ -74,11 +76,11 @@
 
 
 
-                                                                    <form method="POST" action="/admin/deleteUser">
+                                                                    <form method="POST" action="/admin/deleteAssign">
 
                                                                         <input name="id" value="<%=el._id %>"
                                                                             type="text" hidden>
-                                                                        <button class="dropdown-item" type="submit">Delete</button>
+                                                                        <button class="dropdown-item btn btn-danger" type="submit">Delete</button>
                                                                     </form>
 
 
@@ -92,7 +94,7 @@
 
 
 
-                                                    <%}); %>
+                                                    <%} }); %>
 
 
                                             </tbody>
@@ -109,6 +111,57 @@
             </div><!-- .wrap -->
 
               <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+
+                      <div class="modal-body">
+                        <form id="idForm" action="/admin/assign" method="POST">
+                            <div class="form-group">
+                                <label for="editor">Select Editor</label>
+                                <select id="sign-in-email" type="text" name="eid" class="form-control" required>
+                                    <% users.forEach(function(st, index) {%>
+
+                                        <% if (st.type=="editor") { %>
+
+                                    <option value="<%= st.id %>"><%= st.firstname + " "+ st.lastname + " ("+st.email+" )" %></option>
+
+                                    <%} }); %>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="streamer">Select Streamer</label>
+                                <select id="sign-in-email" type="text" name="sid" class="form-control" >
+                                    <% users.forEach(function(st, index) {%>
+
+                                        <% if (st.type=="streamer") { %>
+
+                                    <option value="<%= st.id %>"><%= st.firstname + " "+ st.lastname + " ("+st.email+" )" %></option>
+
+                                    <%} }); %>
+                                </select>
+                            </div>
+            
+                          
+                            
+                        
+                      </div>
+                      <div class="modal-footer">
+                          <button type="submit" class="btn btn-danger"
+                              >Assign</button><button type="button" class="btn btn-secondary"
+                              data-dismiss="modal">Close</button>
+
+                      </div>
+                    </form>
+                  </div>
+              </div>
+          </div>
+
+
+
+           <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
               aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -181,7 +234,7 @@
                     success: function(data)
                     {
                         alert(data.message); // show response from the php script.
-                    }
+                        window.location.reload();                    }
                     });
 
 

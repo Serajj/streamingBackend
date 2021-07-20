@@ -240,10 +240,20 @@ datatable -->
                                     </li>
                                     <li role="separator" class="divider"></li>
                                     <li>
+                                        <% if(sessiondata.type=="admin"){ %>
                                         <a class="text-color" href="/admin/logout">
                                             <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
                                             <span>Logout <%=sessiondata.firstname%></span>
                                         </a>
+                                        <% } else{ %>  
+
+                                            <a class="text-color" href="/editor/logout">
+                                                <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
+                                                <span>Logout <%=sessiondata.firstname%></span>
+                                            </a>
+
+
+                                            <% } %>
                                     </li>
                                 </ul>
                             </li>
@@ -294,6 +304,16 @@ datatable -->
                     </li>
 
                     <% } %>
+
+                    <% if(sessiondata.type=="admin"){ %>
+                        <li>
+                            <a href="/admin/assign">
+                                <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
+                                <span class="menu-text">Assign</span>
+                            </a>
+                        </li>
+    
+                        <% } %>
 
                     <% if(sessiondata.type=="admin"){ %>
                     <li>

@@ -226,18 +226,18 @@
 
 		reduceAppMenu: function () {
 			var $appMenu = $('body.menubar-top .app-menu');
-			// if the menu is already customized return true
+			// if the menu is already customized return true  change menu size
 			if ($appMenu.find('>li.more-items-li').length) return true;
 
 			var $menuItems = $appMenu.find('> li:not(.menu-separator)');
-			if ($menuItems.length > 5) {
+			if ($menuItems.length > 7) {
 				var $moreItemsLi = $('<li class="more-items-li has-submenu"></li>'),
 					$moreItemsUl = $('<ul class="submenu"></ul>'),
 					$moreItemsToggle = $('<a href="javascript:void(0)" class="submenu-toggle"></a>');
 				$moreItemsToggle.append(['<i class="menu-icon zmdi zmdi-more-vert zmdi-hc-lg"></i>', '<span class="menu-text">More...</span>', '<i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>']);
 
 				$menuItems.each(function (i, item) {
-					if (i >= 5) $(item).clone().appendTo($moreItemsUl);
+					if (i >= 7) $(item).clone().appendTo($moreItemsUl);
 				});
 
 				$moreItemsLi.append([$moreItemsToggle, $moreItemsUl]).insertAfter($appMenu.find('>li:nth-child(5)'));

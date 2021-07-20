@@ -68,16 +68,20 @@
                                                                 </a>
                                                                 <div
                                                                     class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                                    <!-- <a class="dropdown-item" href="#">Edit</a> -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <a class="dropdown-item btn btn-primary" href="#editModal" onclick="openEditModald('<%= el.firstname %>','<%= el.lastname %>','<%= el.email %>','<%= el.phone %>','<%= el.password %>','<%= el._id %>')">Edit</a>
 
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <form method="POST" action="/admin/deleteUser">
 
-
-                                                                    <form method="POST" action="/admin/deleteUser">
-
-                                                                        <input name="id" value="<%=el._id %>"
-                                                                            type="text" hidden>
-                                                                        <button class="dropdown-item" type="submit">Delete</button>
-                                                                    </form>
+                                                                                <input name="id" value="<%=el._id %>"
+                                                                                    type="text" hidden>
+                                                                                <button type="submit" class="btn btn-danger mt-2" >Delete</button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
 
 
                                                                 </div>
@@ -153,11 +157,79 @@
           </div>
 
 
+
+
+
+           <!-- Modal -->
+           <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div class="modal-dialog" role="document">
+               <div class="modal-content">
+
+                   <div class="modal-body">
+                     <form id="updateForm" action="/admin/updateUser" method="POST">
+                         <div class="form-group">
+                             <lable>First Name</lable>
+                             <input id="firstname" type="text" name="firstname" class="form-control" placeholder="First Name" required>
+                         </div>
+
+                         <div class="form-group">
+                            <lable>Last Name</lable>
+
+                             <input id="lastname" type="text" name="lastname" class="form-control" placeholder="Last Name" required>
+                         </div>
+
+                         <div class="form-group">
+                            <lable>Phone</lable>
+
+                             <input id="phone" type="text" name="phone" class="form-control" placeholder="Phone" required>
+                         </div>
+
+                         <div class="form-group">
+                            <lable>Email</lable>
+
+                             <input id="email" type="email" name="email" class="form-control" placeholder="Email" required>
+                             <input id="sign-in-email" type="text" name="type" class="form-control" value="editor" style="display:none">
+                             <input id="myid" type="text" name="myid" class="form-control" style="display:none">
+
+                         </div>
+         
+                       
+         
+                       
+                         
+                     
+                   </div>
+                   <div class="modal-footer">
+                       <button type="submit" class="btn btn-danger"
+                           >Submit</button><button type="button" class="btn btn-secondary"
+                           data-dismiss="modal">Close</button>
+
+                   </div>
+                 </form>
+               </div>
+           </div>
+       </div>
+
+
 <script>
         function openModald() {
             $('#exampleModal').modal('show');
             videoElement = document.getElementById('videoElement');
           
+        }
+
+        function openEditModald(fname,lname,email,phone,password,id) {
+            document.getElementById('firstname').value=fname;
+            document.getElementById('lastname').value=lname;
+            document.getElementById('email').value=email;
+            document.getElementById('phone').value=phone;
+            document.getElementById('myid').value=id;
+
+          
+
+            //alert(id);
+            $('#editModal').modal('show');          
         }
 
 
@@ -176,6 +248,30 @@
                     success: function(data)
                     {
                         alert(data.message); // show response from the php script.
+                        window.location.reload();  
+                    }
+                    });
+
+
+                });
+
+
+
+                $("#updateForm").submit(function(e) {
+
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+
+                var form = $(this);
+                var url = form.attr('action');
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function(data)
+                    {
+                        alert("Successfully Updated."); // show response from the php script.
+                        window.location.reload();  
                     }
                     });
 

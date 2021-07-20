@@ -23,7 +23,8 @@ const liveStreamView = (req, res, next) => {
 }
 const allrecordedView = (req, res, next) => {
 
-    streamModel.find({}, function (err, streamList) {
+    const user_id = req.session.id;
+    streamModel.find({user_id}, function (err, streamList) {
         res.render('allrecordedStreams', { 'sessiondata': req.session , streams: streamList });
 
     }).sort({ "_id": -1 });
