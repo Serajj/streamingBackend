@@ -201,7 +201,7 @@
 
                         if (flvjs.isSupported()) {
 
-                            if (document.getElementById(vid).paused) {
+                         
                                 var flvPlayer = flvjs.createPlayer({
                                     type: 'flv',
                                     url: url
@@ -209,7 +209,7 @@
                                 flvPlayer.attachMediaElement(document.getElementById('videoElement'));
                                 flvPlayer.load();
                                 flvPlayer.play();
-                            }
+                            
                         }
                         }
 
