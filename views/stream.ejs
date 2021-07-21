@@ -125,11 +125,13 @@
             <!-- /#app-footer -->
         </main>
         <!--========== END app main -->
+        <script src="../assets/js/obs-websocket.js"></script>
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
         <script>
-
+           
+           var obsrunning=false;
 
             // var localhost = "127.0.0.1";
             var localhost = "207.148.73.163";
@@ -154,7 +156,9 @@
                             for (var strm in liveStreams) {
 
                                 var publisher = liveStreams[strm].publisher;
-                                var clientId = publisher.clientId;
+                                console.log(liveStreams);
+                                if(publisher != null){
+                                    var clientId = publisher.clientId;
                                 var stream = publisher.stream;
                                 var startTime = publisher.connectCreated;
                                 var ip = publisher.ip;
@@ -172,6 +176,7 @@
                                     mainview.appendChild(div);
 
                                 }
+                                }
 
 
 
@@ -180,8 +185,10 @@
                             for (var strm in liveStreams) {
                                 var publ = liveStreams[strm].publisher;
 
-                                var stre = publ.stream;
+                                if(publ != null){
+                                    var stre = publ.stream;
                                 newavailable.push(stre);
+                                }
                             }
 
                             var re = compareArray(allAvailableStreams, newavailable);
@@ -411,20 +418,63 @@
 
             function importStream() {
                 let yourArray = [];
+                
+                if(!obsrunning){
+                    obsrunning=true;
+                    document.location = "editconsole://";
+                }
+
 
                 let allchecked = document.getElementsByName("checkedvalues[]");
                 allchecked.forEach(ele => {
                     if (ele.checked) {
                         yourArray.push(ele.value);
+                        var vurl = "http://" + localhost + ":8000/live/" + ele.value + '.flv';
+                        obs.send('CreateSource',{sourceName:ele.value,sourceKind:"ffmpeg_source",sceneName:"Scene",sourceSettings:{input:vurl,is_local_file:false,buffering_mb:10,reconnect_delay_sec:2}}).then(data=>{
+                            console.log(data);
+                        })
                     }
                 })
 
 
 
-                console.log(yourArray.length);
+               
+                  
 
-                alert(yourArray.length + " streams importing in editor's console");
+                if(yourArray.length >0){
+                    alert("Imported to application");
+                }
+
+                //alert(yourArray.length + " streams importing in editor's console");
             }
+
+
+            confirm("Please make sure you have installed stream search live  application before Importing...");             
+            
+
+
+
+    const obs = new OBSWebSocket();
+
+
+      obs.connect({
+          address: "localhost:4444"
+    }).catch(error=>{
+
+        alert("Please make sure OBS is running on your system");
+        console.warn("Obs is not running or not installed");
+        console.log(error);
+        
+    });
+
+   
+      obs.on('ConnectionOpened', () => {
+
+        obsrunning=true;
+         console.log("web socket connected successfully.");
+
+        
+      });
 
         </script>
 

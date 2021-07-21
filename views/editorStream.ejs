@@ -156,7 +156,9 @@
                             for (var strm in liveStreams) {
 
                                 var publisher = liveStreams[strm].publisher;
-                                var clientId = publisher.clientId;
+                                console.log(liveStreams);
+                                if(publisher != null){
+                                    var clientId = publisher.clientId;
                                 var stream = publisher.stream;
                                 var startTime = publisher.connectCreated;
                                 var ip = publisher.ip;
@@ -174,6 +176,7 @@
                                     mainview.appendChild(div);
 
                                 }
+                                }
 
 
 
@@ -182,8 +185,10 @@
                             for (var strm in liveStreams) {
                                 var publ = liveStreams[strm].publisher;
 
-                                var stre = publ.stream;
+                                if(publ != null){
+                                    var stre = publ.stream;
                                 newavailable.push(stre);
+                                }
                             }
 
                             var re = compareArray(allAvailableStreams, newavailable);
