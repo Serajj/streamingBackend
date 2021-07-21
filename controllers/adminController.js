@@ -106,9 +106,13 @@ const loginPostView = async (req, res, next) => {
         if (!(checkUser.type == "admin" || checkUser.type == "editor") ){
             return res.status(405).json({ error: "Access denied, You are not Admin" })
         }
+
+        console.log(checkUser);
+        console.log("myid "+checkUser._id);
         req.session.loggedin = true;
         req.session.serajisagoodprogrammer = "ofcourse";
-        req.session.id = checkUser.id;
+        req.session.id = checkUser._id;
+        req.session.userid = checkUser._id;
         req.session.firstname = checkUser.firstname;
         req.session.lastname = checkUser.lastname;
         req.session.email = checkUser.email;

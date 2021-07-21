@@ -32,6 +32,17 @@ const allrecordedView = (req, res, next) => {
 }
 
 
+const assignedStreamers = (req, res, next) => {
+
+    const eid = req.session.userid;
+    assignModel.find({eid}).populate('streamer').populate('editor').// only return the Persons name
+        exec(function (err, story) {
+           res.render('assignedStreamer', { 'sessiondata': req.session ,assign:story});
+      });
+
+}
+
+
 
 
 module.exports = {
@@ -40,5 +51,6 @@ module.exports = {
     liveStreamView,
 
     allrecordedView,
+    assignedStreamers
 
 }

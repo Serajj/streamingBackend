@@ -1,0 +1,150 @@
+<%- include('./includes/head.ejs') %>
+    <title>Assigned | Admin</title>
+    <%- include('./includes/main.ejs') %>
+
+        <!-- APP MAIN ==========-->
+        <main id="app-main" class="app-main">
+            <div class="wrap">
+                <section class="app-content">
+                    <div class="row">
+                        <!-- DOM dataTable -->
+                        <div class="col-md-12">
+                            <div class="widget">
+                                <header class="widget-header">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h4 class="widget-title">Assigned Streamer's List</h4>
+                                           
+                                        </div>
+                                        <div class="col-md-2">
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </header><!-- .widget-header -->
+                                <hr class="widget-separator">
+                                <div class="widget-body">
+                                    <div class="table-responsive">
+                                        <table id="default-datatable" data-plugin="DataTable"
+                                            class="table table-striped" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    
+
+                                                    <th>Streamer</th>
+                                                    <th>Email</th>
+                                                    <!-- <th>Action</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    
+
+                                                    <th>Streamer</th>
+                                                    <th>Email</th>
+                                                    <!-- <th>Action</th> -->
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+
+                                                <% assign.forEach(function(el, index) {
+                                                    if(!(el.editor==null || el.streamer==null)){
+                                                    %>
+
+                                                    <tr>
+                                                        <td>
+                                                            <%= el.streamer.firstname + " " + el.editor.lastname %><br>
+                                                            
+                                                        </td>
+
+                                                        <td>
+                                                           
+                                                            <%= el.streamer.email%>
+                                                        </td>
+
+
+
+                                                        <!-- <td class="text-center">
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                                    role="button" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fa fa-ellipsis-v"></i>
+                                                                </a>
+                                                                <div
+                                                                    class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                                   
+
+
+
+                                                                    <form method="POST" action="/admin/deleteAssign">
+
+                                                                        <input name="id" value="<%=el._id %>"
+                                                                            type="text" hidden>
+                                                                        <button class="dropdown-item btn btn-danger" type="submit">Delete</button>
+                                                                    </form>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </td> -->
+                                                    </tr>
+
+
+
+
+
+
+                                                    <%} }); %>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div><!-- .widget-body -->
+                            </div><!-- .widget -->
+                        </div><!-- END column -->
+
+
+
+                    </div><!-- .row -->
+                </section><!-- .app-content -->
+            </div><!-- .wrap -->
+
+        
+
+
+<script>
+        function openModald() {
+            $('#exampleModal').modal('show');
+            videoElement = document.getElementById('videoElement');
+          
+        }
+
+
+
+        $("#idForm").submit(function(e) {
+
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+
+                var form = $(this);
+                var url = form.attr('action');
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function(data)
+                    {
+                        alert(data.message); // show response from the php script.
+                        window.location.reload();                    }
+                    });
+
+
+                });
+</script>
+
+        </main>
+        <!--========== END app main -->
+
+        <%- include('./includes/mainfooter.ejs') %>
