@@ -181,7 +181,7 @@
                 </section><!-- .app-content -->
             </div><!-- .wrap -->
 
-            <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+
             <script>
 
 
@@ -189,29 +189,10 @@
                 var videoElement;
                 function openModald(url) {
                     $('#exampleModal').modal('show');
-                    playVideo(url)
+                    videoElement = document.getElementById('videoElement');
+                    videoElement.src = url;
+                    videoElement.play();
                 }
-
-
-                function playVideo(url) {
-
-
-                      
-
-
-                        if (flvjs.isSupported()) {
-
-                         
-                                var flvPlayer = flvjs.createPlayer({
-                                    type: 'flv',
-                                    url: url
-                                });
-                                flvPlayer.attachMediaElement(document.getElementById('videoElement'));
-                                flvPlayer.load();
-                                flvPlayer.play();
-                            
-                        }
-                        }
 
                 function openModalUser(data) {
                     $('#userModal').modal('show');
