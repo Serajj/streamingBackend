@@ -425,9 +425,9 @@
                     if (ele.checked) {
                         yourArray.push(ele.value);
                         var vurl = "http://" + localhost + ":8000/live/" + ele.value + '.flv';
-                        obs.send('CreateSource',{sourceName:ele.value,sourceKind:"browser_source",sceneName:"Scene",sourceSettings:{url:vurl,height:600,width:800}}).then(data=>{
-                       console.log(data);
-                       })
+                        obs.send('CreateSource',{sourceName:ele.value,sourceKind:"ffmpeg_source",sceneName:"Scene",sourceSettings:{input:vurl,is_local_file:false,buffering_mb:10,reconnect_delay_sec:2}}).then(data=>{
+                            console.log(data);
+                        })
                     }
                 })
 
@@ -436,6 +436,9 @@
                
                   
 
+                if(yourArray.length >0){
+                    alert("Imported to application");
+                }
 
                 //alert(yourArray.length + " streams importing in editor's console");
             }
