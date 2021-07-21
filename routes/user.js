@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { login, register, getStream, startStream, socialUserInfo, sendOtp, verifyOtp, testApi, verifyOtpAndChangePassword } = require("../controllers/userController");
+const { login, register, getStream, startStream, socialUserInfo, sendOtp, verifyOtp, testApi, verifyOtpAndChangePassword, changeStreamStatus } = require("../controllers/userController");
 const authToken = require("../middleware/authToken");
 
 const router = express.Router();
@@ -24,4 +24,7 @@ router.post('/register', register)
 router.post('/getStreams', authToken, getStream)
 
 router.post('/startStream', authToken, startStream)
+
+router.post('/endStream', authToken, changeStreamStatus)
+
 module.exports = router

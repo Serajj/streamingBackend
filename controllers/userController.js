@@ -345,6 +345,7 @@ exports.startStream = async (req, res) => {
         user_id: req.user.id,
         stream_name: req.body.stream_name,
         venue: req.body.venue,
+        status:"live",
         cover_image: "myimage.png"
     })
 
@@ -362,6 +363,22 @@ exports.startStream = async (req, res) => {
 
 
     res.status(200).json({ success: true, message: "Stream records saved successfully", stream_id: streamId });
+}
+
+
+
+exports.changeStreamStatus = async (req, res) => {
+
+
+    if (!req.body.stream_id) {
+        res.status(422).json({ success: false, message: "Please Provide stream Id" });
+    }
+
+    await Character.findOneAndUpdate({stream_id:req.body.stream_id}, {status:"end"});
+    console.log("final " + streamId);
+
+
+    res.status(200).json({ success: true, message: "Stream status changed successfully" });
 }
 
 getSignInToken = user => {

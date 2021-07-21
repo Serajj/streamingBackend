@@ -7,6 +7,7 @@ const streamModel = new Schema({
     user_id: { type: String, required: true },
     stream_name: { type: String, required: true },
     venue: { type: String, required: true },
+    status: { type: String, required: true },
     cover_image: { type: String, required: true }
 });
 
