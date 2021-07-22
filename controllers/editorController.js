@@ -50,7 +50,7 @@ const liveStreamData = (req, res, next) => {
         exec(function (err, story) {
            var myids=[];
             for (const val of story) { 
-                console.log(val);
+               // console.log(val);
                 myids.push(val.sid);
             }
 
@@ -63,7 +63,7 @@ const liveStreamData = (req, res, next) => {
 
             var strmids=[];
             for (const val of docs) { 
-                console.log(val);
+                //console.log(val);
                 strmids.push(val.stream_id);
             }
             return res.status(200).json({ streams: strmids});
