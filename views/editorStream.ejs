@@ -155,10 +155,14 @@
 
                             console.log(liveStreams);
                             // document.getElementById("tabledata").innerHTML = '';
-                            for (var strm in liveStreams) {
+                            for (let i = 0; i < liveStreams.length; i++) {
+                             
+                                var stream= liveStreams[i];
 
+                                console.log("mystr "+stream);
                                 
-                                const stream = strm.stream_id;
+                                
+
 
                                 if (!allAvailableStreams.includes(stream)) {
                                     allAvailableStreams.push(stream);
@@ -177,8 +181,8 @@
 
                             
                             var newavailable = [];
-                            for (var strm in liveStreams) {
-                                newavailable.push(strm.stream_id); 
+                            for (let i = 0; i < liveStreams.length; i++) {
+                                newavailable.push(liveStreams[i]); 
                             }
 
                             var re = compareArray(allAvailableStreams, newavailable);
@@ -222,7 +226,7 @@
 
             async function playVideo(stream, vid) {
 
-                console.log("player "+stream);
+                console.log("sid "+stream);
 
                 var vurl = "http://" + localhost + ":8000/live/" + stream + '.flv';
                 console.log("video url = "+ vurl);

@@ -61,8 +61,12 @@ const liveStreamData = (req, res, next) => {
             }).select('stream_id').// only return the Persons name
         exec(function (err, docs) {
 
-            
-            return res.status(200).json({ streams: docs});
+            var strmids=[];
+            for (const val of docs) { 
+                //console.log(val);
+                strmids.push(val.stream_id);
+            }
+            return res.status(200).json({ streams: strmids});
 
         })
             
