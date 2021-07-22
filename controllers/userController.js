@@ -374,11 +374,14 @@ exports.changeStreamStatus = async (req, res) => {
         res.status(422).json({ success: false, message: "Please Provide stream Id" });
     }
 
-    await Character.findOneAndUpdate({stream_id:req.body.stream_id}, {status:"end"});
-    console.log("final " + streamId);
+    streamModel.findOneAndUpdate({ stream_id: req.body.stream_id },{status:"end"}, function (err) {
+     if(err){
+        res.status(200).json({ success: false, message: "Error : "+err });
+     }
+     res.status(200).json({ success: true, message: "Status Changed successfully"});
 
-
-    res.status(200).json({ success: true, message: "Stream status changed successfully" });
+    });
+    
 }
 
 getSignInToken = user => {

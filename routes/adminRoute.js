@@ -10,6 +10,10 @@ const router = express.Router();
 
 router.get('/', checkAuth, indexView);
 
+router.get('/downloads',checkAuth ,(req, res) => {
+    res.render('downloads',{ 'sessiondata': req.session });
+}
+)
 
 router.get('/login', loginView);
 

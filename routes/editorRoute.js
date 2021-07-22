@@ -6,6 +6,10 @@ const router = express.Router();
 
 router.get('/', checkEditor, indexView);
 
+router.get('/downloads',checkEditor ,(req, res) => {
+    res.render('downloads',{ 'sessiondata': req.session });
+}
+)
 
 router.get('/streams', checkEditor, liveStreamView );
 

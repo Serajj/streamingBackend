@@ -111,6 +111,13 @@ app.get('/', (req, res) => {
 }
 )
 
+
+//download page
+
+
+
+
+
 //stream video 
 
 app.get('/playVideo', function (req, res) {
@@ -235,6 +242,7 @@ const config = {
         tasks: [
             {
                 app: 'live',
+                ac: 'aac',
                 mp4: true,
                 mp4Flags: '[movflags=frag_keyframe+empty_moov]',
 
