@@ -160,11 +160,11 @@
 
                                 if (!allAvailableStreams.includes(stream)) {
                                     allAvailableStreams.push(stream);
-
+                                    const clientId=stream+"s";
                                     const div = document.createElement('div');
 
                                     div.className = 'col-xs-6 col-sm-4 col-md-3';
-                                    var myvframe = '<div class="gallery-item"><div class="round" onmouseover="check(this)"><input type="checkbox" id="checkbox" name="checkedvalues[]"  value="' + stream + '"/><label for="checkbox"></label></div><div class=""><video class="videoInsert" onmouseover=playVideo("' + stream + '","' + stream + '")  id="' + stream + '" controls  poster="http://207.148.73.163:3000/assets/img/brand/logo.jpeg" muted> </video></div></div>';
+                                    var myvframe = '<div class="gallery-item"><div class="round" onmouseover="check(this)"><input type="checkbox" id="checkbox" name="checkedvalues[]"  value="' + stream + '"/><label for="checkbox"></label></div><div class=""><video class="videoInsert" onmouseover=playVideo("' + stream + '","' + clientId + '")  id="' + clientId + '" controls  poster="http://207.148.73.163:3000/assets/img/brand/logo.jpeg" muted> </video></div></div>';
                                     div.innerHTML = myvframe;
                                     mainview.appendChild(div);
 
