@@ -151,18 +151,11 @@
 
 
                         if (obj != null) {
-                            var liveStreams = obj.live;
+                            var liveStreams = obj.streams;
                             // document.getElementById("tabledata").innerHTML = '';
-                            for (var strm in liveStreams) {
+                            for (var stream in liveStreams) {
 
-                                var publisher = liveStreams[strm].publisher;
-                                console.log(liveStreams);
-                                if(publisher != null){
-                                    var clientId = publisher.clientId;
-                                var stream = publisher.stream;
-                                var startTime = publisher.connectCreated;
-                                var ip = publisher.ip;
-                                var video = publisher.video;
+                                
 
 
                                 if (!allAvailableStreams.includes(stream)) {
@@ -171,7 +164,7 @@
                                     const div = document.createElement('div');
 
                                     div.className = 'col-xs-6 col-sm-4 col-md-3';
-                                    var myvframe = '<div class="gallery-item"><div class="round" onmouseover="check(this)"><input type="checkbox" id="checkbox" name="checkedvalues[]"  value="' + stream + '"/><label for="checkbox"></label></div><div class=""><video class="videoInsert" onmouseover=playVideo("' + stream + '","' + clientId + '")  id="' + clientId + '" controls  poster="http://207.148.73.163:3000/assets/img/brand/logo.jpeg" muted> </video></div></div>';
+                                    var myvframe = '<div class="gallery-item"><div class="round" onmouseover="check(this)"><input type="checkbox" id="checkbox" name="checkedvalues[]"  value="' + stream + '"/><label for="checkbox"></label></div><div class=""><video class="videoInsert" onmouseover=playVideo("' + stream + '","' + stream + '")  id="' + stream + '" controls  poster="http://207.148.73.163:3000/assets/img/brand/logo.jpeg" muted> </video></div></div>';
                                     div.innerHTML = myvframe;
                                     mainview.appendChild(div);
 
@@ -180,15 +173,10 @@
 
 
 
-                            }
+                            
                             var newavailable = [];
                             for (var strm in liveStreams) {
-                                var publ = liveStreams[strm].publisher;
-
-                                if(publ != null){
-                                    var stre = publ.stream;
-                                newavailable.push(stre);
-                                }
+                                newavailable.push(strm); 
                             }
 
                             var re = compareArray(allAvailableStreams, newavailable);
@@ -211,7 +199,7 @@
 
                     }
                 };
-                xhttp.open("GET", "http://" + localhost + ":8000/api/streams", true);
+                xhttp.open("GET", "http://" + localhost + ":3000/editor/livestreams", true);
                 xhttp.send();
 
 
