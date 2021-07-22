@@ -155,10 +155,10 @@
 
                             console.log(liveStreams);
                             // document.getElementById("tabledata").innerHTML = '';
-                            for (var stream in liveStreams) {
+                            for (var strm in liveStreams) {
 
                                 
-
+                                const stream = strm.stream_id;
 
                                 if (!allAvailableStreams.includes(stream)) {
                                     allAvailableStreams.push(stream);
@@ -178,7 +178,7 @@
                             
                             var newavailable = [];
                             for (var strm in liveStreams) {
-                                newavailable.push(strm); 
+                                newavailable.push(strm.stream_id); 
                             }
 
                             var re = compareArray(allAvailableStreams, newavailable);
