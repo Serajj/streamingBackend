@@ -244,7 +244,7 @@ const config = {
                 app: 'live',
                 ac: 'aac',
                 mp4: true,
-                mp4Flags: '[movflags=frag_keyframe+empty_moov]',
+                //mp4Flags: '[movflags=frag_keyframe+empty_moov]',
 
             }
         ]
@@ -319,22 +319,7 @@ nms.on('donePlay', (id, StreamPath, args) => {
  *****/
 
 
-function savestreamtodb(id, path, name) {
 
-    var url = "http://localhost:3000/mystream" + path + "/" + name + ".mp4";
-    var mystream = new saveStream({
-        id, path, url
-    });
-
-    try {
-        mystream.save();
-    } catch (error) {
-        console.log("error while saving stream " + error);
-    }
-
-    console.log("Saved to database");
-    return 0;
-}
 
 
 
