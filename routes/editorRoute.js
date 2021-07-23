@@ -12,7 +12,7 @@ router.get('/downloads',checkEditor ,(req, res) => {
 )
 
 router.get('/streams', checkEditor, liveStreamView );
-router.get('/livestreams', liveStreamData
+router.get('/livestreams', checkEditor, liveStreamData
 );
 
 router.get('/allstreams', checkEditor, allrecordedView);
