@@ -35,7 +35,7 @@ const allrecordedView = (req, res, next) => {
 
     streamModel.find({
             'user_id': { $in: myids},'status':'live'
-        })// only return the Persons name
+        }).// only return the Persons name
     exec(function (err, docs) {
 
         
