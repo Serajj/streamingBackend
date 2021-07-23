@@ -23,11 +23,41 @@ const liveStreamView = (req, res, next) => {
 }
 const allrecordedView = (req, res, next) => {
 
-    const user_id = req.session.id;
-    streamModel.find({user_id}, function (err, streamList) {
-        res.render('allrecordedStreams', { 'sessiondata': req.session , streams: streamList });
+    const eid = req.session.userid;
+    assignModel.find({eid}).sort({ "_id": -1 }).// only return the Persons name
+        exec(function (err, story) {
+           var myids=[];
+            for (const val of story) { 
+               // console.log(val);
+                myids.push(val.sid);
+            }
 
-    }).sort({ "_id": -1 });
+
+
+        streamModel.find({
+                'user_id': { $in: myids},'status':'live'
+            }).select('stream_id').// only return the Persons name
+        exec(function (err, docs) {
+
+            res.render('allrecordedStreams', { 'sessiondata': req.session , streams: docs });
+
+        })
+            
+
+      });
+
+
+
+
+
+
+
+
+    // const user_id = req.session.id;
+    // streamModel.find({user_id}, function (err, streamList) {
+        
+
+    // }).sort({ "_id": -1 });
 
 }
 
