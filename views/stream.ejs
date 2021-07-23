@@ -152,7 +152,7 @@
         <script>
            
            var obsrunning=false;
-
+           const obs = new OBSWebSocket();
             // var localhost = "127.0.0.1";
             var localhost = "207.148.73.163";
 
@@ -470,7 +470,7 @@
                         
 $('document').ready(function(){
 
-const obs = new OBSWebSocket();
+
 
 
 obs.connect({
