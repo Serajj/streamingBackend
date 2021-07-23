@@ -36,9 +36,9 @@ const allrecordedView = (req, res, next) => {
 
         streamModel.find({
                 'user_id': { $in: myids},'status':'end'
-            }).select('stream_id').// only return the Persons name
+            }).sort({ "_id": -1 }).// only return the Persons name
         exec(function (err, docs) {
-            res.render('allrecordedStreams', { 'sessiondata': req.session , streams: docs });
+            res.render('editorAllSavedStream', { 'sessiondata': req.session , streams: docs });
 
         })
             

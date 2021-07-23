@@ -1,5 +1,6 @@
 const express = require("express");
 const { checkEditor } = require("../auth/checkEditor");
+const { userData } = require("../controllers/adminController");
 const { indexView, liveStreamView, allrecordedView, assignedStreamers, liveStreamData } = require("../controllers/editorController");
 
 const router = express.Router();
@@ -15,6 +16,7 @@ router.get('/streams', checkEditor, liveStreamView );
 router.get('/livestreams', checkEditor, liveStreamData
 );
 
+router.post('/userdata', checkEditor, userData);
 router.get('/allstreams', checkEditor, allrecordedView);
 router.get('/assignedStreamer', checkEditor, assignedStreamers);
 
