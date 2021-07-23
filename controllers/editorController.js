@@ -24,7 +24,7 @@ const liveStreamView = (req, res, next) => {
 const allrecordedView = (req, res, next) => {
 
     const eid = req.session.userid;
-    assignModel.find({eid}).sort({ "_id": -1 }).// only return the Persons name
+    assignModel.find({eid}).// only return the Persons name
         exec(function (err, story) {
            var myids=[];
             for (const val of story) { 
@@ -35,10 +35,9 @@ const allrecordedView = (req, res, next) => {
 
 
         streamModel.find({
-                'user_id': { $in: myids},'status':'live'
+                'user_id': { $in: myids},'status':'end'
             }).select('stream_id').// only return the Persons name
         exec(function (err, docs) {
-
             res.render('allrecordedStreams', { 'sessiondata': req.session , streams: docs });
 
         })
