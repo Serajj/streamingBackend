@@ -150,9 +150,70 @@
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
-        <script>
-           
-           var obsrunning=false;
+       
+
+     <script>
+
+
+
+            
+$('document').ready(function(){
+
+    
+    const obs = new OBSWebSocket();
+
+      obs.connect({
+          address: "localhost:4444"
+    }).catch(error=>{
+
+        console.log(error);
+        $('#exampleModal').modal('show');
+
+        // document.location="http://207.148.73.163:3000/editor/downloads";
+
+        
+    });
+
+   
+      obs.on('ConnectionOpened', () => {
+
+        obsrunning=true;
+         console.log("web socket connected successfully.");
+
+        
+      });
+
+     });
+            
+
+
+
+    
+
+     function gotoDownload(){
+        window.location.href = "http://207.148.73.163:3000/editor/downloads";
+     }
+
+
+      function openssl(){
+        // setTimeout(function () { window.location = "http://207.148.73.163:3000/editor/downloads"; }, 25);
+        // window.location = "editconsole://";
+
+
+        window.location.href = "editconsole://";
+        obsrunning=true;
+      }
+
+
+
+
+
+
+
+
+      //calling  viseo
+
+            var obsrunning=false;
 
             // var localhost = "127.0.0.1";
             var localhost = "207.148.73.163";
@@ -267,48 +328,47 @@
             }
 
             setInterval(loadStreams, 4000);
-        </script>
 
 
 
-
-     <script>
-
-            var flvPlayer;
-
-            function playStream(strm_id) {
-
-                openModald();
-
-                var vurl = "http://" + localhost + ":8000/live/" + strm_id + '.flv';
-
-                if (flvjs.isSupported()) {
-                    var videoElement = document.getElementById('videoElement');
-                    flvPlayer = flvjs.createPlayer({
-                        type: 'flv',
-                        url: vurl
-                    });
-                    flvPlayer.attachMediaElement(videoElement);
-                    flvPlayer.load();
-                    flvPlayer.play();
-                }
-
-            }
+      //handle video play
 
 
-            function stopvplaying() {
-                console.log("seraj", "playing")
-                flvPlayer.pause();
+      
 
-            }
+var flvPlayer;
 
-     </script>
+function playStream(strm_id) {
 
-     <script>
-            // handle events and mouse
+    openModald();
+
+    var vurl = "http://" + localhost + ":8000/live/" + strm_id + '.flv';
+
+    if (flvjs.isSupported()) {
+        var videoElement = document.getElementById('videoElement');
+        flvPlayer = flvjs.createPlayer({
+            type: 'flv',
+            url: vurl
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        flvPlayer.play();
+    }
+
+}
 
 
-            const selectIcons = document.getElementById("selectallicon");
+function stopvplaying() {
+    console.log("seraj", "playing")
+    flvPlayer.pause();
+
+}
+
+
+                  // handle events and mouse
+
+
+                  const selectIcons = document.getElementById("selectallicon");
             selectIcons.style.display = "block";
             const deselectIcons = document.getElementById("deselectallicon");
             const importIcon = document.getElementById("importicon");
@@ -459,55 +519,6 @@
 
                 //alert(yourArray.length + " streams importing in editor's console");
             }
-
-
-            
-$('document').ready(function(){
-
-                const obs = new OBSWebSocket();
-
-
-      obs.connect({
-          address: "localhost:4444"
-    }).catch(error=>{
-
-        console.log(error);
-        $('#exampleModal').modal('show');
-
-        // document.location="http://207.148.73.163:3000/editor/downloads";
-
-        
-    });
-
-   
-      obs.on('ConnectionOpened', () => {
-
-        obsrunning=true;
-         console.log("web socket connected successfully.");
-
-        
-      });
-
-     });
-            
-
-
-
-    
-
-     function gotoDownload(){
-        window.location.href = "http://207.148.73.163:3000/editor/downloads";
-     }
-
-
-      function openssl(){
-        // setTimeout(function () { window.location = "http://207.148.73.163:3000/editor/downloads"; }, 25);
-        // window.location = "editconsole://";
-
-
-        window.location.href = "editconsole://";
-        obsrunning=true;
-      }
         </script>
 
 
