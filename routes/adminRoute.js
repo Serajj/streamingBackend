@@ -34,7 +34,10 @@ router.get('/streams', checkAuth, liveStreamView
 router.get('/allstreams', checkAuth, allrecordedView);
 router.post('/deleteStream', checkAuth, deleteRecordedStream);
 
-
+router.get('/downloads',checkAuth ,(req, res) => {
+    res.render('downloads',{ 'sessiondata': req.session });
+}
+)
 
 router.get('/stremers', checkAuth, streamView);
 

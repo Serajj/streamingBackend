@@ -109,20 +109,40 @@
                     </div><!-- END .gallery -->
                 </section><!-- #dash-content -->
             </div><!-- .wrap -->
-            <!-- APP FOOTER -->
-            <!-- <div class="wrap p-t-0">
-            <footer class="app-footer">
-                <div class="clearfix">
-                    <ul class="footer-menu pull-right">
-                        <li><a href="javascript:void(0)">Careers</a></li>
-                        <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                        <li><a href="javascript:void(0)">Feedback <i class="fa fa-angle-up m-l-md"></i></a></li>
-                    </ul>
-                    <div class="copyright pull-left">Copyright RaThemes 2016 &copy;</div>
-                </div>
-            </footer>
-        </div> -->
-            <!-- /#app-footer -->
+           
+
+
+             <!-- Modal -->
+             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+             <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+
+                     <div class="modal-body">
+
+                        <p>SSL Console Application is not running on your system. Please ensure SSL Console is running before import.</p>
+                       <div class="row">
+                           <div class="col-md-4">
+                            <button onclick="openssl()" class="btn btn-danger"
+                        >Open SSL Console</button>
+                           </div>
+                           <div class="col-md-4">
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <button type="button" onclick="gotoDownload()" class="btn btn-secondary"
+                            data-dismiss="modal">Go to Download</button>
+                        </div>
+                       </div>
+                       
+                         
+                           
+                       
+                     </div>
+                 </div>
+             </div>
+         </div>
         </main>
         <!--========== END app main -->
         <script src="../assets/js/obs-websocket.js"></script>
@@ -420,8 +440,7 @@
                 let yourArray = [];
                 
                 if(!obsrunning){
-                    obsrunning=true;
-                    document.location = "editconsole://";
+                    $('#exampleModal').modal('show');
                 }
 
 
@@ -436,45 +455,70 @@
                     }
                 })
 
-
-
-               
-                  
-
                 if(yourArray.length >0){
                     alert("Imported to application");
+                }else{
+                    alert("Please select stream first.");
                 }
 
                 //alert(yourArray.length + " streams importing in editor's console");
             }
 
 
-            confirm("Please make sure you have installed stream search live  application before Importing...");             
+    
+            
+                        
+$('document').ready(function(){
+
+const obs = new OBSWebSocket();
+
+
+obs.connect({
+address: "localhost:4444"
+}).catch(error=>{
+
+console.log(error);
+$('#exampleModal').modal('show');
+
+// document.location="http://207.148.73.163:3000/editor/downloads";
+
+
+});
+
+
+obs.on('ConnectionOpened', () => {
+
+obsrunning=true;
+console.log("web socket connected successfully.");
+
+
+});
+
+});
+
+
+
+
+
+
+function gotoDownload(){
+window.location.href = "http://207.148.73.163:3000/admin/downloads";
+}
+
+
+function openssl(){
+// setTimeout(function () { window.location = "http://127.0.0.1:3000/editor/downloads"; }, 25);
+// window.location = "editconsole://";
+
+
+window.location.href = "editconsole://";
+obsrunning=true;
+}
             
 
 
 
-    const obs = new OBSWebSocket();
-
-
-      obs.connect({
-          address: "localhost:4444"
-    }).catch(error=>{
-
-        alert("Please make sure OBS is running on your system");
-        console.warn("Obs is not running or not installed");
-        console.log(error);
-        
-    });
-
    
-      obs.on('ConnectionOpened', () => {
-
-        obsrunning=true;
-         console.log("web socket connected successfully.");
-
-        
-      });
 
         </script>
 

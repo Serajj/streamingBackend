@@ -232,12 +232,29 @@ datatable -->
                                             <span>Profile</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="text-color" href="settings.html">
-                                            <span class="m-r-xs"><i class="fa fa-gear"></i></span>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
+                                   
+
+                                    <% if(sessiondata.type=="admin"){ %>
+                                        <li>
+                                            <a class="text-color" href="/admin/downloads">
+                                                <span class="m-r-xs"><i class="fa fa-gear"></i></span>
+                                                <span>Downloads</span>
+                                            </a>
+                                        </li>
+                    
+                                      <% } else{ %>  
+                                        <li>
+                                            <a class="text-color" href="/editor/downloads">
+                                                <span class="m-r-xs"><i class="fa fa-gear"></i></span>
+                                                <span>Downloads</span>
+                                            </a>
+                                        </li>
+                    
+                                     <% } %>
+
+
+
+
                                     <li role="separator" class="divider"></li>
                                     <li>
                                         <% if(sessiondata.type=="admin"){ %>
